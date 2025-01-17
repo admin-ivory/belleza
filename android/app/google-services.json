@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "776611190911",
+    "project_id": "afro-belleza",
+    "storage_bucket": "afro-belleza.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776611190911:android:4b1b9c4fe8ad0be2a1874a",
+        "android_client_info": {
+          "package_name": "afroo.belleza.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC97XXxgVWgsM-W887NkWierk6avGUxPrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776611190911:android:d666cff6e11d6c13a1874a",
+        "android_client_info": {
+          "package_name": "com.afrobelleza.boss"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC97XXxgVWgsM-W887NkWierk6avGUxPrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
