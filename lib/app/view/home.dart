@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Text(value.title, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontFamily: 'bold', fontSize: 14)),
                                     ),
                                     const SizedBox(height: 5),
-                                    Text('Find and book best services'.tr, style: const TextStyle(color: Colors.white, fontFamily: 'bold', fontSize: 22)),
+                                    Text('Find and book best services'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontFamily: 'bold', fontSize: 22)),
                                     const SizedBox(height: 10),
                                     InkWell(
                                       onTap: () => value.onSearch(),

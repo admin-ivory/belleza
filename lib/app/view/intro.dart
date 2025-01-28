@@ -85,50 +85,52 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   Widget _buildBody() {
-    return CarouselSlider(
-      options: CarouselOptions(
-        onPageChanged: (index, reason) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        height: double.infinity,
-        viewportFraction: 1.0,
-        initialPage: 0,
-        enableInfiniteScroll: false,
-        reverse: false,
-        autoPlay: false,
-        enlargeCenterPage: true,
-        scrollDirection: Axis.horizontal,
-      ),
-      controller: _controller,
-      items: items.map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
-              width: double.infinity,
-              height: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 0),
-              child: Column(
-                children: [
-                  if (i == 0)
-                    _buildSlide1(context)
-                  else if (i == 1)
-                    _buildSlide2(context)
-                  else if (i == 2)
-                    _buildSlide3(context)
-                  else if (i == 3)
-                    _buildSlide4(context)
-                  else if (i == 4)
-                    _buildSlide5(context),
-                  _buildDots()
-                ],
-              ),
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 200),
+        child: CarouselSlider(
+          options: CarouselOptions(
+            onPageChanged: (index, reason) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            height: double.infinity,
+            viewportFraction: 1.0,
+            initialPage: 0,
+            enableInfiniteScroll: false,
+            reverse: false,
+            autoPlay: false,
+            enlargeCenterPage: true,
+            scrollDirection: Axis.horizontal,
+          ),
+          controller: _controller,
+          items: items.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Column(
+                    children: [
+                      if (i == 0)
+                        _buildSlide1(context)
+                      else if (i == 1)
+                        _buildSlide2(context)
+                      else if (i == 2)
+                        _buildSlide3(context)
+                      else if (i == 3)
+                        _buildSlide4(context)
+                      else if (i == 4)
+                        _buildSlide5(context),
+                      _buildDots()
+                    ],
+                  ),
+                );
+              },
             );
-          },
-        );
-      }).toList(),
-    );
+          }).toList(),
+        ));
   }
 
   Widget _buildSlide1(BuildContext context) {
@@ -479,6 +481,8 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 }
+
+class sizebox {}
 
 contentButtonStyle1() {
   return const BoxDecoration(

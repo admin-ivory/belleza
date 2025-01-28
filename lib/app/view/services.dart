@@ -263,7 +263,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                                   tabs: [
                                     Tab(text: 'About'.tr),
                                     Tab(text: 'Services'.tr),
-                                    Tab(text: 'Gallary'.tr),
+                                    Tab(text: 'Gallery'.tr),
                                     Tab(text: 'Review'.tr),
                                   ],
                                 ),

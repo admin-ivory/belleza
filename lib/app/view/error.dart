@@ -27,13 +27,14 @@ class _ErrorScreenState extends State<ErrorScreen> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 53,),
+              SizedBox(height: 233,),
               SizedBox(height: 300, width: 300, child: Image.asset("assets/images/error.png", fit: BoxFit.contain)),
-             // Center(child: Text('Connection Failed'.tr)),
+              const SizedBox(height: 10),
+              // Center(child: Text('Connection Failed'.tr)),
               Center (child: Text( 'We need to Internet Access'.tr)),
               Center(child: Text('Could not connect to network'.tr)),
               Center(child: Text('Please check and try again'.tr)),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               ElevatedButton(onPressed: () => Get.offNamed(AppRouter.getInitialRoute()),
                   child: Text("agree".tr.toUpperCase(),
                       style: const TextStyle(color: ThemeProvider.blackColor)))

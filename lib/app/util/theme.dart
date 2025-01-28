@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 const typeTheme = Typography.whiteMountainView;
 
 class ThemeProvider {
-  static const appColor = Color.fromARGB(229, 52, 1, 255);
+  static const appColor = Color.fromARGB(255, 211, 90, 0);
   static const secondaryAppColor = Color.fromARGB(255, 35, 74, 214);
   static const whiteColor = Colors.white;
   static const blackColor = Color(0xFF000000);
