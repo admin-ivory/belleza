@@ -45,7 +45,7 @@ class _IndividualSlotScreenState extends State<IndividualSlotScreen> {
                         Container(
                           height: 100,
                           margin: const EdgeInsets.symmetric(vertical: 10),
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: ThemeProvider.whiteColor,

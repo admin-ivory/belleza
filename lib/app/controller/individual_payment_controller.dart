@@ -490,11 +490,12 @@ class IndividualPaymentController extends GetxController implements GetxService 
       "status": 0
     };
     var response = await parser.createAppoinments(param);
-    var notificationParam = {"id": Get.find<ServiceCartController>().salonId, "title": 'New Appointment', "message": 'New Appointment Received'};
-    await parser.sendNotification(notificationParam);
-    Get.back();
+
 
     if (response.statusCode == 200) {
+      var notificationParam = {"id": Get.find<ServiceCartController>().salonId, "title": 'New Appointment', "message": 'New Appointment Received'};
+      await parser.sendNotification(notificationParam);
+      Get.back();
       Get.defaultDialog(
         title: '',
         contentPadding: const EdgeInsets.all(20),

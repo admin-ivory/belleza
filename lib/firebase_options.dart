@@ -41,52 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-      apiKey: "AIzaSyBu73UNyWTnswQ0EUQ6GVWtYZ6Dp6hdBwo",
-      authDomain: "afro-belleza.firebaseapp.com",
-      projectId: "afro-belleza",
-      storageBucket: "afro-belleza.firebasestorage.app",
-      messagingSenderId: "776611190911",
-      appId: "1:776611190911:web:5545568237ec34eba1874a",
-      measurementId: "G-V99Q8MKQY7"
+    apiKey: 'AIzaSyBxybSC0yjBdUncTDEGpXxPUuBKqJt0-dw',
+    appId: '1:917397990481:web:b7bdc9fef55664cd4d9c70',
+    messagingSenderId: '917397990481',
+    projectId: 'afrobelleza',
+    authDomain: 'afrobelleza.firebaseapp.com',
+    storageBucket: 'afrobelleza.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-      apiKey: "AIzaSyBu73UNyWTnswQ0EUQ6GVWtYZ6Dp6hdBwo",
-      authDomain: "afro-belleza.firebaseapp.com",
-      projectId: "afro-belleza",
-      storageBucket: "afro-belleza.firebasestorage.app",
-      messagingSenderId: "776611190911",
-      appId: "1:776611190911:android:4b1b9c4fe8ad0be2a1874a",
-      measurementId: "G-V99Q8MKQY7"
+    apiKey: 'AIzaSyCFC0MB29a8peek_EEaIV0kUNzGJLyplDc',
+    appId: '1:917397990481:android:8874ee471d489d544d9c70',
+    messagingSenderId: '917397990481',
+    projectId: 'afrobelleza',
+    storageBucket: 'afrobelleza.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDa5Nzkwem00XC1By9KPyzlrsQjeoAzz-g',
-    appId: '1:1022022823127:ios:33e7d1863e9e4b43f3d492',
-    messagingSenderId: '1022022823127',
-    projectId: 'ultimate-salon-flutter',
-    storageBucket: 'ultimate-salon-flutter.appspot.com',
-    iosClientId: '1022022823127-fchj97baoac3hp1fv77oapku1tgjbvds.apps.googleusercontent.com',
-    iosBundleId: 'io.initappz.ultimate.salon.owner',
+    apiKey: 'AIzaSyAVxLgUCUGf0X_cQIp1MqPGwQpDMsNN_g8',
+    appId: '1:917397990481:ios:11f7942ecf1a8ee04d9c70',
+    messagingSenderId: '917397990481',
+    projectId: 'afrobelleza',
+    storageBucket: 'afrobelleza.firebasestorage.app',
+    iosBundleId: 'ios.afrobelleza.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDa5Nzkwem00XC1By9KPyzlrsQjeoAzz-g',
-    appId: '1:1022022823127:ios:33e7d1863e9e4b43f3d492',
-    messagingSenderId: '1022022823127',
-    projectId: 'ultimate-salon-flutter',
-    storageBucket: 'ultimate-salon-flutter.appspot.com',
-    iosClientId: '1022022823127-fchj97baoac3hp1fv77oapku1tgjbvds.apps.googleusercontent.com',
-    iosBundleId: 'io.initappz.ultimate.salon.owner',
+    apiKey: 'AIzaSyAVxLgUCUGf0X_cQIp1MqPGwQpDMsNN_g8',
+    appId: '1:917397990481:ios:11f7942ecf1a8ee04d9c70',
+    messagingSenderId: '917397990481',
+    projectId: 'afrobelleza',
+    storageBucket: 'afrobelleza.firebasestorage.app',
+    iosBundleId: 'ios.afrobelleza.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-      apiKey: "AIzaSyBu73UNyWTnswQ0EUQ6GVWtYZ6Dp6hdBwo",
-      authDomain: "afro-belleza.firebaseapp.com",
-      projectId: "afro-belleza",
-      storageBucket: "afro-belleza.firebasestorage.app",
-      messagingSenderId: "776611190911",
-      appId: "1:776611190911:web:5545568237ec34eba1874a",
-      measurementId: "G-V99Q8MKQY7"
+    apiKey: 'AIzaSyBxybSC0yjBdUncTDEGpXxPUuBKqJt0-dw',
+    appId: '1:917397990481:web:55f9a532036de4384d9c70',
+    messagingSenderId: '917397990481',
+    projectId: 'afrobelleza',
+    authDomain: 'afrobelleza.firebaseapp.com',
+    storageBucket: 'afrobelleza.firebasestorage.app',
   );
+
 }

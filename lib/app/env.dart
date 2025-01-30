@@ -9,7 +9,7 @@
 class Environments {
   static const String appName = 'AfroBelleza';
   static const String companyName = 'Afroo';
-  static const String googleMapsKey = 'AIzaSyBu73UNyWTnswQ0EUQ6GVWtYZ6Dp6hdBwo';
+  static const String googleMapsKey = 'AIzaSyBm4NbSZvn6SOnN8o4vgT23XmVp1BxeX9c';
   static const String apiBaseURL = 'https://panel-afrobelleza.routeka.com/';
   static const String websiteURL = 'https://afrobelleza.routeka.com';
 }

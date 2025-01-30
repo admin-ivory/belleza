@@ -54,7 +54,7 @@ class _SlotScreenState extends State<SlotScreen> {
                           ),
                           child: DatePicker(
                             DateTime.now(),
-                            width: 60,
+                            width: 80,
                             height: 90,
                             controller: value.controller,
                             initialSelectedDate: DateTime.now(),
