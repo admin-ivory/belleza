@@ -7,7 +7,6 @@
   Copyright and Good Faith Purchasers © 2024-present initappz.
 */
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:user/app/backend/api/handler.dart';
@@ -66,57 +65,44 @@ class SplashController extends GetxController implements GetxService {
     Response response = await parser.getAppSettings();
     bool isSuccess = false;
     if (response.statusCode == 200) {
-      try {
-        // Parsez le body de la réponse seulement s'il n'est pas null
-        if (response.body != null) {
-          Map<String, dynamic> myMap = jsonDecode(response.body);
+      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
+      if (myMap['data'] != null) {
+        dynamic body = myMap["data"];
+        if (body['settings'] != null && body['support'] != null) {
+          SettingsModel appSettingsInfo = SettingsModel.fromJson(body['settings']);
 
-          if (myMap['data'] != null) {
-            dynamic body = myMap['data'];
-            if (body['settings'] != null && body['support'] != null) {
-              SettingsModel appSettingsInfo = SettingsModel.fromJson(body['settings']);
-              _settingsModel = appSettingsInfo;
+          _settingsModel = appSettingsInfo;
 
-              SupportModel supportModelInfo = SupportModel.fromJson(body['support']);
-              _supportModel = supportModelInfo;
-
-              parser.saveBasicInfo(
-                appSettingsInfo.currencyCode,
-                appSettingsInfo.currencySide,
-                appSettingsInfo.currencySymbol,
-                appSettingsInfo.smsName,
-                appSettingsInfo.userVerifyWith,
-                appSettingsInfo.userLogin,
-                appSettingsInfo.email,
-                appSettingsInfo.name,
-                0,
-                appSettingsInfo.deliveryCharge,
-                appSettingsInfo.tax,
-                appSettingsInfo.logo,
-                '${supportModelInfo.firstName!} ${supportModelInfo.lastName!}',
-                supportModelInfo.id,
-                appSettingsInfo.mobile.toString(),
-                appSettingsInfo.allowDistance,
-              );
-              isSuccess = true;
-            } else {
-              isSuccess = false;
-            }
-          } else {
-            isSuccess = false;
-          }
+          SupportModel supportModelInfo = SupportModel.fromJson(body['support']);
+          _supportModel = supportModelInfo;
+          parser.saveBasicInfo(
+            appSettingsInfo.currencyCode,
+            appSettingsInfo.currencySide,
+            appSettingsInfo.currencySymbol,
+            appSettingsInfo.smsName,
+            appSettingsInfo.userVerifyWith,
+            appSettingsInfo.userLogin,
+            appSettingsInfo.email,
+            appSettingsInfo.name,
+            0,
+            appSettingsInfo.deliveryCharge,
+            appSettingsInfo.tax,
+            appSettingsInfo.logo,
+            '${supportModelInfo.firstName!} ${supportModelInfo.lastName!}',
+            supportModelInfo.id,
+            appSettingsInfo.mobile.toString(),
+            appSettingsInfo.allowDistance,
+          );
+          isSuccess = true;
         } else {
           isSuccess = false;
         }
-      } catch (e) {
-        print('Erreur lors du parsing du JSON : $e');
-        isSuccess = false;
       }
     } else {
       ApiChecker.checkApi(response);
       isSuccess = false;
     }
-
+    update();
     return isSuccess;
   }
 
