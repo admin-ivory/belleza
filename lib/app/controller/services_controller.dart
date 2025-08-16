@@ -8,7 +8,8 @@
 */
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_share/flutter_share.dart';
+//import 'package:flutter_share/flutter_share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:user/app/backend/api/handler.dart';
@@ -214,9 +215,18 @@ class ServicesController extends GetxController with GetTickerProviderStateMixin
       throw 'Could not launch $url';
     }
   }
-
+  late final params = ShareParams(
+      title: Environments.appName,
+      text: '${'Please checkout this salon'.tr} ${salonDetails.name}',
+    //  linkUrl: salonDetails.website.toString(),
+      //FlutterShare.share(title: Environments.appName, text: '${'Please checkout this salon'.tr} ${salonDetails.name}', linkUrl: salonDetails.website.toString(), chooserTitle: 'Share with'.tr);
+    //  chooserTitle: 'Share with'.tr);
+  );
   Future<void> share() async {
-    await FlutterShare.share(title: Environments.appName, text: '${'Please checkout this salon'.tr} ${salonDetails.name}', linkUrl: salonDetails.website.toString(), chooserTitle: 'Share with'.tr);
+    await SharePlus.instance.share(params);
+
+
+
   }
 
   void onChat() {

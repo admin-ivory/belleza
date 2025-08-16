@@ -13,7 +13,8 @@ import 'package:user/app/backend/models/redeem_model.dart';
 import 'package:user/app/backend/parse/refer_and_earn_parse.dart';
 import 'package:user/app/env.dart';
 import 'package:user/app/util/toast.dart';
-import 'package:flutter_share/flutter_share.dart';
+//import 'package:flutter_share/flutter_share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ReferAndEarnController extends GetxController implements GetxService {
   final ReferAndEarnParser parser;
@@ -55,7 +56,12 @@ class ReferAndEarnController extends GetxController implements GetxService {
     String title = '${'Your friend'.tr} $userName ${'has invited you to'.tr} ${Environments.appName}';
     String message =
         '${'Hey Buddy download'.tr} ${Environments.appName} ${'from app store and use my code'.tr} $myCode${'while sign up we both will get'.tr} ${referralData.amount} ${'wallet amount'.tr}';
-    await FlutterShare.share(title: title, text: message, linkUrl: Environments.websiteURL, chooserTitle: 'Share with buddies'.tr);
+    await
+    SharePlus.instance.share(
+        ShareParams(text: 'check out my website https://example.com')
+    );
+
+   // FlutterShare.share(title: title, text: message, linkUrl: Environments.websiteURL, chooserTitle: 'Share with buddies'.tr);
   }
 
   void copyToClipBoard() {

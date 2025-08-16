@@ -8,9 +8,10 @@
 */
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_share/flutter_share.dart';
+//import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:user/app/backend/api/handler.dart';
 import 'package:user/app/backend/models/categories_model.dart';
 import 'package:user/app/backend/models/individual_info_model.dart';
@@ -215,10 +216,23 @@ class SpecialistController extends GetxController with GetTickerProviderStateMix
     final Uri launchUri = Uri(scheme: 'tel', path: individualDetails.mobile.toString());
     await launchUrl(launchUri);
   }
-
+  late final params = ShareParams(
+    title: Environments.appName,
+    text: individualDetails.website.toString(),
+    //  linkUrl: salonDetails.website.toString(),
+    //FlutterShare.share(title: Environments.appName, text: '${'Please checkout this salon'.tr} ${salonDetails.name}', linkUrl: salonDetails.website.toString(), chooserTitle: 'Share with'.tr);
+    //  chooserTitle: 'Share with'.tr);
+  );
   Future<void> share() async {
-    await FlutterShare.share(title: Environments.appName, linkUrl: individualDetails.website.toString(), chooserTitle: 'Share with'.tr);
+    await SharePlus.instance.share(params);
+
+
+
   }
+
+//  Future<void> share() async {
+  //  await FlutterShare.share(title: Environments.appName, linkUrl: individualDetails.website.toString(), chooserTitle: 'Share with'.tr);
+//  }
 
   void onChat() {
     debugPrint('on chat');

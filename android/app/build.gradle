@@ -26,12 +26,13 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "afroo.belleza.app"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk 36
+    ndkVersion = '27.0.12077973'
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
     }
 
     defaultConfig {
@@ -47,14 +48,19 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+    buildToolsVersion '35.0.0'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-messaging:24.1.0' // Use the latest version available
+    implementation 'com.google.firebase:firebase-messaging:25.0.0' // Use the latest version available
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.google.firebase:firebase-inappmessaging-display:21.0.1'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:22.0.0'
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:18.1.3'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
     // Add other dependencies here
 }
