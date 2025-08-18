@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            background: Container(
+                            /*background: Container(
                               height: 180,
                               width: double.infinity,
                               decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/login.jpg'), fit: BoxFit.cover)),
@@ -217,7 +217,103 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
+                            ),*/
+                            background: Container(
+                              height: 180,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
+                                image: const DecorationImage(
+                                  image: AssetImage('assets/images/login.jpg'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: Stack(
+                                children: [
+                                  // Overlay dégradé pour le texte lisible
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [Colors.black45, Colors.transparent],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                      ),
+                                      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(height: 5),
+                                        InkWell(
+                                          onTap: () => Get.toNamed(AppRouter.getFindLocationRoutes()),
+                                          borderRadius: BorderRadius.circular(8),
+                                          splashColor: Colors.white24,
+                                          child: Text(
+                                            value.title,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                                fontFamily: 'Montserrat',
+                                                shadows: [Shadow(blurRadius: 5, color: Colors.black45)]
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Find and book best services'.tr,
+                                          style: TextStyle(
+                                              color: ThemeProvider.appColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 24,
+                                              fontFamily: 'Montserrat',
+                                              shadows: [
+                                                Shadow(blurRadius: 5, color: Colors.black26)
+                                              ]
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        // Barre de recherche stylisée
+                                        InkWell(
+                                          onTap: () => value.onSearch(),
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: Card(
+                                            elevation: 8,
+                                            color: Colors.white.withOpacity(0.95),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(15),
+                                            ),
+                                            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'Search salon, spa and barber'.tr,
+                                                    style: const TextStyle(
+                                                        color: ThemeProvider.greyColor,
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontFamily: 'Montserrat'
+                                                    ),
+                                                  ),
+                                                  const Icon(Icons.search_rounded, color: ThemeProvider.appColor, size: 22)
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+// add by me
                           );
                         },
                       ),
@@ -260,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         child: SizedBox.fromSize(
                                                           size: const Size.fromRadius(30),
                                                           child: FadeInImage(
-                                                            image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${item.cover.toString()}'),
+                                                            image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.cover.toString()}'),
                                                             placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                             imageErrorBuilder: (context, error, stackTrace) {
                                                               return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -324,7 +420,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             child: ClipRRect(
                                                               borderRadius: BorderRadius.circular(10),
                                                               child: FadeInImage(
-                                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.bannerList[index].cover.toString()}'),
+                                                                image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.bannerList[index].cover.toString()}'),
                                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -396,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             child: SizedBox.fromSize(
                                                               size: const Size.fromRadius(25),
                                                               child: FadeInImage(
-                                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${item.userInfo?.cover.toString()}'),
+                                                                image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.userInfo?.cover.toString()}'),
                                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -452,7 +548,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             child: ClipRRect(
                                                               borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                                                               child: FadeInImage(
-                                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${item.cover.toString()}'),
+                                                                image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.cover.toString()}'),
                                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -570,7 +666,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             clipBehavior: Clip.none,
                                                             children: [
                                                               FadeInImage(
-                                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.productsList[i].cover.toString()}'),
+                                                                image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.productsList[i].cover.toString()}'),
                                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                                   return Image.asset('assets/images/notfound.png', width: double.infinity, height: 120, fit: BoxFit.cover);

@@ -100,7 +100,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                   child: SizedBox.fromSize(
                                                                     size: const Size.fromRadius(25),
                                                                     child: FadeInImage(
-                                                                      image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.appointmentList[index].salonInfo!.cover.toString()}'),
+                                                                      image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.appointmentList[index].salonInfo!.cover.toString()}'),
                                                                       placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                       imageErrorBuilder: (context, error, stackTrace) {
                                                                         return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 25, width: 25);
@@ -119,7 +119,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                   child: SizedBox.fromSize(
                                                                     size: const Size.fromRadius(25),
                                                                     child: FadeInImage(
-                                                                      image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.appointmentList[index].individualInfo!.background.toString()}'),
+                                                                      image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.appointmentList[index].individualInfo!.background.toString()}'),
                                                                       placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                       imageErrorBuilder: (context, error, stackTrace) {
                                                                         return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 25, width: 25);
@@ -386,7 +386,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                   child: SizedBox.fromSize(
                                                                     size: const Size.fromRadius(25),
                                                                     child: FadeInImage(
-                                                                      image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.appointmentListOld[index].salonInfo!.cover.toString()}'),
+                                                                      image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.appointmentListOld[index].salonInfo!.cover.toString()}'),
                                                                       placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                       imageErrorBuilder: (context, error, stackTrace) {
                                                                         return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 25, width: 25);
@@ -405,7 +405,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                                                   child: SizedBox.fromSize(
                                                                     size: const Size.fromRadius(25),
                                                                     child: FadeInImage(
-                                                                      image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.appointmentListOld[index].individualInfo!.background.toString()}'),
+                                                                      image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.appointmentListOld[index].individualInfo!.background.toString()}'),
                                                                       placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                       imageErrorBuilder: (context, error, stackTrace) {
                                                                         return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 25, width: 25);

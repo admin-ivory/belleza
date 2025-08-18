@@ -6,12 +6,15 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2024-present initappz.
 */
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:user/app/controller/login_controller.dart';
 import 'package:user/app/helper/router.dart';
 import 'package:user/app/util/theme.dart';
+import 'package:zo_animated_border/widget/zo_dual_border.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           body: SingleChildScrollView(
             reverse: true,
             child: Column(
+
               children: [
                 Stack(
                   alignment: Alignment.center,
@@ -49,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))),
                       ),
                     ),
+                    Container()
                   ],
                 ),
                 Padding(
@@ -113,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [InkWell(onTap: () => Get.toNamed(AppRouter.getResetPasswordRoute()), child: Text('Forgot Password ?'.tr, style: const TextStyle(color: ThemeProvider.appColor)))],
                             ),
-                            Padding(
+                           /* Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
                               child: InkWell(
                                 onTap: () => value.onLogin(),
@@ -127,7 +132,44 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+                            ),*/
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
+                              child: InkWell(
+                                onTap: () => value.onLogin(),
+                                child: ZoDualBorder(
+                                  duration: const Duration(seconds: 3),
+                                  glowOpacity: 0.4,
+                                  firstBorderColor: Colors.yellow.shade300,
+                                  secondBorderColor: Colors.orange.shade300,
+                                  trackBorderColor: Colors.transparent,
+                                  borderWidth: 8,
+                                  borderRadius: BorderRadius.circular(15), // Adapter à la bordure du bouton
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(vertical: 13.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0), // même rayon que ZoDualBorder
+                                      color: ThemeProvider.appColor,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Log In'.tr,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontFamily: 'bold',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
+
                             Column(
                               children: [
                                 Padding(
@@ -159,10 +201,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         flex: 1,
                                         child: CountryCodePicker(
                                           onChanged: (e) => value.updateCountryCode(e.dialCode.toString()),
-                                          initialSelection: 'IN',
-                                          favorite: const ['+91', 'IN'],
+                                          initialSelection: 'FR',
+                                          favorite: const ['+33', 'FR'],
                                           showCountryOnly: false,
-                                          showOnlyCountryWhenClosed: false,
+                                          showOnlyCountryWhenClosed: true,
                                           alignLeft: false,
                                         ),
                                       ),
@@ -339,8 +381,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                 ),
+                CarouselSlider(
+                  options: CarouselOptions (
+                    autoPlay: true
+
+                  ),
+                  items: [
+                    //RiveAnimation.asset('assets/rive/shapes.riv'),
+                    RiveAnimation.asset('assets/rive/ahyna.riv'),
+                   RiveAnimation.asset('assets/rive/lapin.riv'),
+                  ],
+
+
+
+                ),
+
+
               ],
+
             ),
+
           ),
         );
       },

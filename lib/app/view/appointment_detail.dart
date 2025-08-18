@@ -63,7 +63,7 @@ class _AppointmentDetailScreenState extends State<AppointmentDetailScreen> {
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(30),
                                             child: FadeInImage(
-                                              image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.appointmentInfo.salonInfo!.cover.toString()}'),
+                                              image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.appointmentInfo.salonInfo!.cover.toString()}'),
                                               placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                               imageErrorBuilder: (context, error, stackTrace) {
                                                 return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 30, width: 30);
@@ -125,7 +125,7 @@ class _AppointmentDetailScreenState extends State<AppointmentDetailScreen> {
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(30),
                                             child: FadeInImage(
-                                              image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.appointmentInfo.ownerInfo!.cover.toString()}'),
+                                              image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.appointmentInfo.ownerInfo!.cover.toString()}'),
                                               placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                               imageErrorBuilder: (context, error, stackTrace) {
                                                 return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 30, width: 30);
@@ -204,7 +204,7 @@ class _AppointmentDetailScreenState extends State<AppointmentDetailScreen> {
                                             child: SizedBox.fromSize(
                                               size: const Size.fromRadius(15),
                                               child: FadeInImage(
-                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.specialistCover}'),
+                                                image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.specialistCover}'),
                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 15, width: 15);

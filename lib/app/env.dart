@@ -10,6 +10,6 @@ class Environments {
   static const String appName = 'Belleza';
   static const String companyName = 'Afroo';
   static const String googleMapsKey = 'AIzaSyBm4NbSZvn6SOnN8o4vgT23XmVp1BxeX9c';
-  static const String apiBaseURL = 'https://api.belleza.afroo-app.com';
-  static const String websiteURL = 'https://belleza.afroo-app.com';
+  static const String apiBaseURL = 'https://api.belleza.afroo-app.com/';
+  static const String websiteURL = 'https://belleza.afroo-app.com/';
 }

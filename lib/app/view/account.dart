@@ -51,7 +51,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 child: FadeInImage(
                                   height: 80,
                                   width: 80,
-                                  image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.cover}'),
+                                  image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.cover}'),
                                   placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                   imageErrorBuilder: (context, error, stackTrace) {
                                     return Image.asset('assets/images/notfound.png', fit: BoxFit.fitWidth);

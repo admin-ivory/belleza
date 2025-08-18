@@ -83,7 +83,7 @@ class _AccountChatScreenState extends State<AccountChatScreen> {
                                                 child: FadeInImage(
                                                   height: 30,
                                                   width: 30,
-                                                  image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.chatList[index].receiverCover}'),
+                                                  image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.chatList[index].receiverCover}'),
                                                   placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                   imageErrorBuilder: (context, error, stackTrace) {
                                                     return Image.asset('assets/images/notfound.png', height: 30, width: 30, fit: BoxFit.fitWidth);
@@ -133,7 +133,7 @@ class _AccountChatScreenState extends State<AccountChatScreen> {
                                                 child: FadeInImage(
                                                   height: 30,
                                                   width: 30,
-                                                  image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.chatList[index].senderCover}'),
+                                                  image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.chatList[index].senderCover}'),
                                                   placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                   imageErrorBuilder: (context, error, stackTrace) {
                                                     return Image.asset('assets/images/notfound.png', height: 30, width: 30, fit: BoxFit.fitWidth);

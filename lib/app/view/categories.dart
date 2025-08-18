@@ -106,7 +106,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
-                              imageUrl: '${Environments.apiBaseURL}api/storage/images/${value.productsList[index].cover.toString()}',
+                              imageUrl: '${Environments.apiBaseURL}/storage/images/${value.productsList[index].cover.toString()}',
                               height: 150,
                               width: double.infinity,
                               fit: BoxFit.cover,

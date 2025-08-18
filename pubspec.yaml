@@ -43,6 +43,8 @@ dependencies:
   lints: ^3.0.0
   xml: ^6.5.0
   share_plus: ^11.1.0
+  zo_animated_border: ^1.0.0
+  rive: ^0.13.20
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +58,7 @@ flutter:
   assets:
     - assets/sliders/
     - assets/images/
+    - assets/rive/
 
   fonts:
     - family: bold

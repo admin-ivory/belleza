@@ -83,7 +83,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                                               child: ClipRRect(
                                                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                                                 child: FadeInImage(
-                                                  image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${item.cover.toString()}'),
+                                                  image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.cover.toString()}'),
                                                   placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                   imageErrorBuilder: (context, error, stackTrace) {
                                                     return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);

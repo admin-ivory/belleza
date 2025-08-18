@@ -56,6 +56,15 @@ class HomeController extends GetxController implements GetxService {
   List<ProductsListModel> get productsList => _productsList;
 
   bool apiCalled = false;
+// add by me
+  var showTutorial = true.obs;
+
+  void hideTutorial() {
+    showTutorial.value = false;
+  }
+
+  // add by me
+
 
   bool haveData = false;
 

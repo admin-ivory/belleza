@@ -167,7 +167,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
                                                 child: SizedBox.fromSize(
                                                   size: const Size.fromRadius(30),
                                                   child: FadeInImage(
-                                                    image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${item.userInfo!.cover}'),
+                                                    image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.userInfo!.cover}'),
                                                     placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                     imageErrorBuilder: (context, error, stackTrace) {
                                                       return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -219,7 +219,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
                                             child: SizedBox.fromSize(
                                               size: const Size.fromRadius(40),
                                               child: FadeInImage(
-                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${item.cover}'),
+                                                image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.cover}'),
                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);

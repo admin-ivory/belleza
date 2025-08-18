@@ -76,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
                                         child: SizedBox.fromSize(
                                           size: const Size.fromRadius(40),
                                           child: FadeInImage(
-                                            image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.savedInCart[i].cover}'),
+                                            image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.savedInCart[i].cover}'),
                                             placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                             imageErrorBuilder: (context, error, stackTrace) {
                                               return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);

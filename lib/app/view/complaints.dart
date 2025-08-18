@@ -266,7 +266,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                         width: double.infinity,
                                         height: 100,
                                         child: FadeInImage(
-                                          image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.savedImages[index]}'),
+                                          image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.savedImages[index]}'),
                                           placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                           imageErrorBuilder: (context, error, stackTrace) {
                                             return Image.asset('assets/images/notfound.png', fit: BoxFit.fitWidth, height: 100, width: double.infinity);
