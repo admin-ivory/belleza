@@ -12,6 +12,8 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+
 import 'package:user/app/controller/home_controller.dart';
 import 'package:user/app/controller/service_cart_controller.dart';
 import 'package:user/app/env.dart';
@@ -19,6 +21,9 @@ import 'package:user/app/helper/router.dart';
 import 'package:user/app/util/theme.dart';
 import 'package:user/app/view/sidemenu.dart';
 import 'package:flutter_skeleton_ui/flutter_skeleton_ui.dart';
+
+import 'package:zo_animated_border/widget/zo_mono_crome_border.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +35,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final CarouselSliderController _controller = CarouselSliderController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final TextEditingController? editTextController = TextEditingController();
   var top = 0.0;
   @override
   void initState() {
@@ -167,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               duration: const Duration(microseconds: 200),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(horizontal: 60),
-                                child: InkWell(
+                                /*child: InkWell(
                                   onTap: () => value.onSearch(),
                                   child: Container(
                                     decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -180,7 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                                   ),
-                                ),
+                                ),*/
+
                               ),
                             ),
                             /*background: Container(
@@ -221,9 +227,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             background: Container(
                               height: 180,
                               width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
-                                image: const DecorationImage(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+                                image: DecorationImage(
                                   image: AssetImage('assets/images/login.jpg'),
                                   fit: BoxFit.cover,
                                 ),
@@ -277,7 +283,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         const SizedBox(height: 12),
                                         // Barre de recherche stylisée
-                                        InkWell(
+                                       InkWell(
+                                          onTap: () => value.onSearch(),
+                                          borderRadius: BorderRadius.circular(15),
+                                          child:
+                                          ZoMonoCromeBorder(
+                                            trackBorderColor: Colors.white,
+                                            cornerRadius: 50.0,
+                                            borderStyle: ZoMonoCromeBorderStyle.mirror,
+                                            borderWidth: 5.5,
+
+                                           child: Card(
+                                              elevation: 8,
+                                              color: Colors.white.withOpacity(0.95),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(15),
+                                              ),
+                                              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Search salon, spa and barber'.tr,
+                                                      style: const TextStyle(
+                                                          color: ThemeProvider.greyColor,
+                                                          fontSize: 17,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: 'Montserrat'
+                                                      ),
+                                                    ),
+                                                    const Icon(Icons.search_rounded, color: ThemeProvider.appColor, size: 22)
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ),
+                                                /*  InkWell(
                                           onTap: () => value.onSearch(),
                                           borderRadius: BorderRadius.circular(15),
                                           child: Card(
@@ -306,8 +350,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ),---*/
+                                        ],
                                     ),
                                   ),
                                 ],

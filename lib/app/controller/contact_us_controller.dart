@@ -56,7 +56,7 @@ class ContactUsController extends GetxController implements GetxService {
   Future<void> sendToAdmin(var id) async {
     var param = {
       'id': id,
-      'mediaURL': '${Environments.apiBaseURL}/api/storage/images/',
+      'mediaURL': '${Environments.apiBaseURL}/storage/images/',
       'subject': 'New Mail Request Received'.tr,
       'thank_you_text': 'You have received new mail'.tr,
       'header_text': 'New Contact Details'.tr,

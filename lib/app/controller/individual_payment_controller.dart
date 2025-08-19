@@ -405,7 +405,7 @@ class IndividualPaymentController extends GetxController implements GetxService 
       var paymentPayLoad = {
         'amount': double.parse((grandTotal * 100).toStringAsFixed(2)).toString(),
         'email': parser.getEmail(),
-        'logo': '${parser.apiService.appBaseUrl}api/storage/images/${parser.getAppLogo()}',
+        'logo': '${parser.apiService.appBaseUrl}/storage/images/${parser.getAppLogo()}',
         'name': parser.getName(),
         'app_color': '#f47878'
       };
@@ -437,7 +437,7 @@ class IndividualPaymentController extends GetxController implements GetxService 
         'phone': parser.getPhone(),
         'name': parser.getName(),
         'code': gateway!.currencyCode.toString(),
-        'logo': '${parser.apiService.appBaseUrl}api/storage/images/${parser.getAppLogo()}',
+        'logo': '${parser.apiService.appBaseUrl}/storage/images/${parser.getAppLogo()}',
         'app_name': Environments.appName
       };
 

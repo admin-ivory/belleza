@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:user/app/controller/intro_controller.dart';
 import 'package:user/app/helper/router.dart';
 import 'package:user/app/util/constant.dart';
@@ -138,14 +139,17 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         Container(
             height: 300,
-            decoration: const BoxDecoration(
+          /*  decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/sliders/1.png'),
-                    fit: BoxFit.contain))),
+                    image: RiveAnimation.assets('assets/sliders/1.png'),
+                    fit: BoxFit.contain))*/
+          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+        ),
+
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text('Find Barbarshop Nearby !'.tr,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -169,11 +173,13 @@ class _IntroScreenState extends State<IntroScreen> {
     return Column(
       children: [
         Container(
-            height: 300,
-            decoration: const BoxDecoration(
+          height: 300,
+          /*  decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/sliders/2.png'),
-                    fit: BoxFit.contain))),
+                    image: RiveAnimation.assets('assets/sliders/1.png'),
+                    fit: BoxFit.contain))*/
+          child: const RiveAnimation.asset('assets/rive/eye_intro.riv'),
+        ),
         Column(
           children: [
             Padding(
@@ -202,10 +208,8 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         Container(
             height: 300,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/sliders/3.png'),
-                    fit: BoxFit.contain))),
+          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+        ),
         Column(
           children: [
             Padding(
@@ -232,11 +236,9 @@ class _IntroScreenState extends State<IntroScreen> {
     return Column(
       children: [
         Container(
-            height: 300,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/sliders/4.png'),
-                    fit: BoxFit.contain))),
+          height: 300,
+          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+        ),
         Column(
           children: [
             Padding(
@@ -263,11 +265,9 @@ class _IntroScreenState extends State<IntroScreen> {
     return Column(
       children: [
         Container(
-            height: 300,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/sliders/5.png'),
-                    fit: BoxFit.contain))),
+          height: 300,
+          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+        ),
         Column(
           children: [
             Padding(

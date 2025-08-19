@@ -53,7 +53,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                                 width: double.infinity,
                                 margin: const EdgeInsets.only(bottom: 50),
                                 child: FadeInImage(
-                                  image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.individualDetails.background.toString()}'),
+                                  image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.individualDetails.background.toString()}'),
                                   placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                   imageErrorBuilder: (context, error, stackTrace) {
                                     return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -89,7 +89,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                                         child: SizedBox.fromSize(
                                           size: const Size.fromRadius(40),
                                           child: FadeInImage(
-                                            image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.userInfo.cover.toString()}'),
+                                            image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.userInfo.cover.toString()}'),
                                             placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                             imageErrorBuilder: (context, error, stackTrace) {
                                               return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -376,7 +376,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                                                       child: SizedBox.fromSize(
                                                         size: const Size.fromRadius(35),
                                                         child: FadeInImage(
-                                                          image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.gallery[index].toString()}'),
+                                                          image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.gallery[index].toString()}'),
                                                           placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                           imageErrorBuilder: (context, error, stackTrace) {
                                                             return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -422,7 +422,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                                                                 child: SizedBox.fromSize(
                                                                   size: const Size.fromRadius(20),
                                                                   child: FadeInImage(
-                                                                    image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.categoriesList[index].cover.toString()}'),
+                                                                    image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.categoriesList[index].cover.toString()}'),
                                                                     placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                     imageErrorBuilder: (context, error, stackTrace) {
                                                                       return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -495,7 +495,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                                                                 child: ClipRRect(
                                                                   borderRadius: BorderRadius.circular(5),
                                                                   child: FadeInImage(
-                                                                    image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.packagesList[index].cover.toString()}'),
+                                                                    image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.packagesList[index].cover.toString()}'),
                                                                     placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                     imageErrorBuilder: (context, error, stackTrace) {
                                                                       return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -589,7 +589,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                                                               child: SizedBox.fromSize(
                                                                 size: const Size.fromRadius(30),
                                                                 child: FadeInImage(
-                                                                  image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.ownerReviewsList[index].user!.cover.toString()}'),
+                                                                  image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.ownerReviewsList[index].user!.cover.toString()}'),
                                                                   placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                   imageErrorBuilder: (context, error, stackTrace) {
                                                                     return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 30, width: 30);
