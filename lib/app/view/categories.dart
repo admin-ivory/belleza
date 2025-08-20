@@ -9,6 +9,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:local_hero_transform/local_hero_transform.dart';
 import 'package:user/app/controller/categories_controller.dart';
 import 'package:user/app/controller/product_cart_controller.dart';
 import 'package:user/app/env.dart';
@@ -21,7 +22,16 @@ class CategoriesScreen extends StatefulWidget {
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
-class _CategoriesScreenState extends State<CategoriesScreen> {
+class _CategoriesScreenState extends State<CategoriesScreen>  with SingleTickerProviderStateMixin {
+
+
+  late final TabController _tabcatcontroller;
+  @override
+  void initState() {
+    super.initState();
+      _tabcatcontroller = TabController(length: 2, vsync: this);  // longueur selon ton usage
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoriesController>(
@@ -29,6 +39,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         return Scaffold(
           backgroundColor: ThemeProvider.whiteColor,
           appBar: AppBar(
+            bottom: TabBar(
+              controller: _tabcatcontroller,
+              tabs: const [
+                Tab(icon: Icon(Icons.grid_view), text: 'Grid'),
+                Tab(icon: Icon(Icons.list), text: 'List'),
+              ],
+
+            ),
             backgroundColor: ThemeProvider.appColor,
             elevation: 0,
             iconTheme: const IconThemeData(color: ThemeProvider.whiteColor),
@@ -68,116 +86,51 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
           )
               : const SizedBox(),
-          body: value.apiCalled == false
+
+          body: TabBarView(
+              controller: _tabcatcontroller,
+              children: [ value.apiCalled == false
               ? SkeletonListView()
               : value.productsList.isNotEmpty
-              ? SingleChildScrollView( // Ajout de SingleChildScrollView ici
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(), // Désactiver le défilement du GridView
-                shrinkWrap: true, // Permet au GridView de prendre seulement l'espace nécessaire
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Nombre de colonnes
-                  childAspectRatio: 0.8, // Ratio de largeur/hauteur
-                  crossAxisSpacing: 10, // Espacement horizontal
-                  mainAxisSpacing: 10, // Espacement vertical
-                ),
-                itemCount: value.productsList.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => value.onCategoryExpand(value.productsList[index].id.toString()),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ThemeProvider.whiteColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3), // décalage de l'ombre
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
-                              imageUrl: '${Environments.apiBaseURL}/storage/images/${value.productsList[index].cover.toString()}',
-                              height: 150,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Image.asset("assets/images/placeholder.jpeg", fit: BoxFit.cover),
-                              errorWidget: (context, url, error) => Image.asset('assets/images/notfound.png', fit: BoxFit.cover),
-                            ),
-                          ),
-                          Container(
-                            height: 150,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ThemeProvider.blackColor.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    value.productsList[index].name.toString(),
-                                    style: const TextStyle(color: ThemeProvider.whiteColor, fontSize: 17, fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    value.selectedCategory == value.productsList[index].id.toString()
-                                        ? Icons.keyboard_arrow_down
-                                        : Icons.keyboard_arrow_up,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          if (value.selectedCategory == value.productsList[index].id.toString())
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Column(
-                                children: List.generate(
-                                  value.productsList[index].subCates!.length,
-                                      (subIndex) => Container(
-                                    decoration: const BoxDecoration(
-                                      border: Border(bottom: BorderSide(color: ThemeProvider.greyColor)),
-                                    ),
-                                    child: ListTile(
-                                      onTap: () => value.onProducts(value.productsList[index].id as int, value.productsList[index].subCates![subIndex].id as int),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                                      title: Text(value.productsList[index].subCates![subIndex].name.toString()),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+              ? Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: LocalHeroViews(
+              tabController: _tabcatcontroller, // Assure-toi d’avoir ce controller dans ton State
+              textDirection: TextDirection.ltr, // Ou variable en fonction de la langue
+              itemCount: value.productsList.length,
+              itemsModel: (index) {
+                final item = value.productsList[index];
+                return ItemsModel(
+                  name: Text(item.name ?? '', style: const TextStyle(color: ThemeProvider.greyColor)),
+                  title: Text(item.name ?? ''),
+                  subTitle: const Text(''), // Ajoute ici un sous-titre si pertinent
+                  favoriteIconButton: IconButton(
+                    icon: const Icon(Icons.favorite_border),
+                    onPressed: () {
+                      // Logique favoris si besoin
+                    },
+                  ),
+                  subTitleIcon: const Icon(Icons.keyboard_arrow_right, size: 18),
+                  image: DecorationImage(
+                    image: NetworkImage('${Environments.apiBaseURL}/storage/images/${item.cover ?? ''}'),
+                    fit: BoxFit.cover,
+                  ),
+                );
+              }, onPressedCard: (int index) {  },
+
             ),
           )
-              : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              SizedBox(height: 80, width: 80, child: Image.asset("assets/images/no-data.png", fit: BoxFit.cover)),
-              const SizedBox(height: 30),
-              Center(child: Text('No Data Found!'.tr, style: const TextStyle(fontFamily: 'bold'))),
-            ],
-          ),
+              : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 80, width: 80, child: Image.asset("assets/images/no-data.png", fit: BoxFit.cover)),
+                const SizedBox(height: 30),
+                Center(child: Text('No Data Found!'.tr, style: const TextStyle(fontFamily: 'bold'))),
+              ],
+            ),
+          ),])
+
         );
       },
     );
