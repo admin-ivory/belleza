@@ -8,6 +8,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user/app/controller/account_controller.dart';
 import 'package:user/app/controller/reset_password_controller.dart';
 import 'package:user/app/helper/router.dart';
@@ -23,7 +24,26 @@ class SideMenuScreen extends StatefulWidget {
 
 class _SideMenuScreenState extends State<SideMenuScreen> {
   bool isOpen = false;
-
+  bool  isQirikuEnabled = false;
+  static const String _ahynaKey = 'isQirikuEnabled';
+  @override
+  void initState() {
+    super.initState();
+    _loadQirikuStatus();
+  }
+Future<void> _loadQirikuStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isQirikuEnabled = prefs.getBool(_ahynaKey) ?? false;
+    });
+}
+Future<void> _saveQirikuStatus(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isQirikuEnabled = value;
+    });
+    await prefs.setBool(_ahynaKey, value);
+}
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(builder: (value) {
@@ -44,10 +64,10 @@ class _SideMenuScreenState extends State<SideMenuScreen> {
                             child: FadeInImage(
                               height: 80,
                               width: 80,
-                              image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.cover}'),
+                              image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.cover}'),
                               placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                               imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 80, width: 80);
+                                return Image.asset('assets/images/logo_white.png', fit: BoxFit.cover, height: 80, width: 80);
                               },
                               fit: BoxFit.cover,
                             ),
@@ -145,14 +165,24 @@ class _SideMenuScreenState extends State<SideMenuScreen> {
                           leading: const Icon(Icons.message_outlined, color: ThemeProvider.greyColor),
                           title: Text('Chats'.tr, style: sidemenuTitle()))
                       : const SizedBox(),
-                  ListTile(
+                 /* ListTile(
                       onTap: () {
                         Scaffold.of(context).openEndDrawer();
                         Get.toNamed(AppRouter.contactUsRoutes);
                       },
                       contentPadding: const EdgeInsets.all(0),
                       leading: const Icon(Icons.contact_page_outlined, color: ThemeProvider.greyColor),
-                      title: Text('Contact Us'.tr, style: sidemenuTitle())),
+                      title: Text('Qiriku'.tr, style: sidemenuTitle())),*/
+                  SwitchListTile(
+                    title: Text('Qiriku'.tr, style: sidemenuTitle()),
+                    value: isQirikuEnabled,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isQirikuEnabled = value;
+                      });
+                      _saveQirikuStatus(value); },
+                  )
+
                 ],
               ),
             ),

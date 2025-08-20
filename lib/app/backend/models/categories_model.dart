@@ -6,6 +6,8 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2024-present initappz.
 */
+
+
 class CategoriesModel {
   int? id;
   String? name;

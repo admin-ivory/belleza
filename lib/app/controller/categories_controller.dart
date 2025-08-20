@@ -75,4 +75,6 @@ class CategoriesController extends GetxController implements GetxService {
   void updateScreen() {
     update();
   }
+
+
 }

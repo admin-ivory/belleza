@@ -33,6 +33,7 @@ Widget buildMenu() {
         ListTile(leading: Icon(Icons.account_balance_wallet_outlined, size: 20.0, color: Colors.white), title: Text('Wallet'), textColor: Colors.white, dense: true),
         ListTile(leading: Icon(Icons.card_giftcard, size: 20.0, color: Colors.white), title: Text('Refer & Earn'), textColor: Colors.white, dense: true),
         ListTile(leading: Icon(Icons.logout, size: 20.0, color: Colors.white), title: Text('Logout'), textColor: Colors.white, dense: true),
+
       ],
     ),
   );
