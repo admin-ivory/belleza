@@ -8,6 +8,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:user/app/controller/choose_location_controller.dart';
 import 'package:user/app/util/constant.dart';
 import 'package:user/app/util/theme.dart';
@@ -58,7 +59,18 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                 const SizedBox(height: 5),
                 Text('Location'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontSize: 20, fontFamily: 'semi-bold')),
                 const SizedBox(height: 50),
-                Image.asset('assets/images/1.png'),
+                const SizedBox(height: 50),
+                const Stack(
+                  children: [SizedBox(
+                    height: 250,
+                    child: RiveAnimation.asset(
+                        fit: BoxFit.cover,
+                        'assets/rive/location.riv'),
+                  )
+
+                  ],
+                ),
+                //Image.asset('assets/images/1.png'),
                 const SizedBox(height: 50),
                 ElevatedButton(
                   onPressed: () => value.getLocation(),

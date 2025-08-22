@@ -99,7 +99,8 @@ class _QirikuIntroPageState extends State<QirikuIntroPage> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.5,
             width: double.infinity,
-            child: RiveAnimation.asset(
+            child:
+            RiveAnimation.asset(
               'assets/rive/oni.riv',
               fit: BoxFit.cover,
               onInit: (artboard) {
