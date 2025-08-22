@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: InkWell(
                                 onTap: () => value.onLogin(),
                                 child: ZoDualBorder(
-                                  duration: const Duration(seconds: 3),
+                                  //duration: const Duration(seconds: 3),
                                   glowOpacity: 0.4,
                                   firstBorderColor: Colors.yellow.shade300,
                                   secondBorderColor: Colors.orange.shade300,

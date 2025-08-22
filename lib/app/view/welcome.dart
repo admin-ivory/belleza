@@ -30,7 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             bottom: 20,
             child: Column(
               children: [
-                const Image(image: AssetImage('assets/images/logo_white.png'), fit: BoxFit.cover, height: 50, width: 50, alignment: Alignment.center),
+                const Image(image: AssetImage('assets/images/wafro.png'), fit: BoxFit.cover, height: 50, width: 50, alignment: Alignment.center),
                 const SizedBox(height: 10),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,

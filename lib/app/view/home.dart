@@ -12,6 +12,9 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart' as rive;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../helper/qiriku_bot_intro.dart';
 
 
 import 'package:user/app/controller/home_controller.dart';
@@ -23,6 +26,8 @@ import 'package:user/app/view/sidemenu.dart';
 import 'package:flutter_skeleton_ui/flutter_skeleton_ui.dart';
 
 import 'package:zo_animated_border/widget/zo_mono_crome_border.dart';
+
+import '../helper/qiriku_bot.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -37,11 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController? editTextController = TextEditingController();
   var top = 0.0;
+  bool isQirikuEnabled = false;
+  static const String _ahynaKey = 'isQirikuEnabled';
   @override
   void initState() {
     super.initState();
+    _loadQirikuStatus();
   }
-
+  Future<void> _loadQirikuStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isQirikuEnabled = prefs.getBool(_ahynaKey) ?? false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -857,6 +870,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ),
+
                                     ],
                                   )
                                 : Column(
@@ -900,6 +914,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 )
               : const SizedBox(),
+          floatingActionButton: DraggableChatButton(
+            onPressed: () {
+              // This is the function that gets executed when the button is pressed.
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const QirikuIntroPage()),
+              );
+            },
+            riveAsset: 'assets/rive/eye_afro.riv',
+          ),
         );
       },
     );
