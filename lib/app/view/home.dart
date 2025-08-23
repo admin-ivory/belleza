@@ -59,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (value) {
-        return Scaffold(
+        return
+          Scaffold(
           key: _scaffoldKey,
           drawerEnableOpenDragGesture: false,
           drawer: const SideMenuScreen(),
@@ -925,6 +926,8 @@ class _HomeScreenState extends State<HomeScreen> {
             riveAsset: 'assets/rive/eye_afro.riv',
           ),
         );
+
+
       },
     );
   }

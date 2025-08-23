@@ -108,7 +108,7 @@ class _QirikuIntroPageState extends State<QirikuIntroPage> {
                   key: 'rive1',
                   artboard: artboard,
                   stateMachineName: 'State Machine 1',
-                  inputNames: ['step', 'thunderGodMode'],
+                  inputNames: ['step', 'thunderGodMode'], animations: [],
                 );
                 setState(() {});
               },

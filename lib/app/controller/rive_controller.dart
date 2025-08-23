@@ -10,6 +10,7 @@ class RiveMultiController {
     required Artboard artboard,
     required String stateMachineName,
     required List<String> inputNames,
+    required List animations,
   }) {
     final controller = StateMachineController.fromArtboard(artboard, stateMachineName);
     if (controller != null) {
