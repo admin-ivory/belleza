@@ -87,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
       builder: (value) {
         return Scaffold(
           body: Stack(alignment: AlignmentDirectional.center, children: [
-            const Image(image: AssetImage('assets/rive/wafro.png'), fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
+            const Image(image: AssetImage('assets/images/logo_afro.png'), fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
            // const Positioned(top: 100, child: Image(image: AssetImage('assets/images/logo_white.png'), fit: BoxFit.cover, height: 50, width: 50, alignment: Alignment.center)),
              Positioned(child: const Text(Environments.appName, style: TextStyle(fontSize: 100, color: ThemeProvider.blackColor , fontFamily: 'bold')).animate().fade(duration: GetNumUtils(500).milliseconds).scale(duration: GetNumUtils(500).milliseconds)
              ),

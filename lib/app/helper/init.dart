@@ -91,6 +91,8 @@ import 'package:user/app/helper/shared_pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
+import '../backend/parse/qiriku_parser.dart';
+
 class MainBinding extends Bindings {
   @override
   Future<void> dependencies() async {
@@ -235,7 +237,7 @@ class MainBinding extends Bindings {
     Get.lazyPut(() => ComplaintsParser(sharedPreferencesManager: Get.find(), apiService: Get.find()), fenix: true);
 
     Get.lazyPut(() => TabsController(parser: Get.find()), fenix: true);
-    Get.lazyPut(() => HomeController(parser: Get.find()), fenix: true);
+    Get.lazyPut(() => HomeController(parser: Get.find(),), fenix: true);
     Get.lazyPut(() => NearController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => CategoriesController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => BookingController(parser: Get.find()), fenix: true);
@@ -247,5 +249,8 @@ class MainBinding extends Bindings {
     Get.lazyPut(() => ServiceCartController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => ProductCartController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => ProductPaymentController(parser: Get.find()), fenix: true);
+
+
+    Get.lazyPut(() => QirikuParser(apiService: Get.find(), sharedPreferencesManager: Get.find()), fenix: true);
   }
 }

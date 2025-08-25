@@ -229,13 +229,13 @@ class _FindLocationScreenState extends State<FindLocationScreen> {
                     const SizedBox(height: 10),
 
                     // Animation Rive de localisation, descendue plus bas, détachée de la barre de recherche
-                    Center(
+                    const Center(
                       child: SizedBox(
                         height: 250,
-                        width: 250,
+                       // width: 250,
                         child: RiveAnimation.asset(
                           'assets/rive/loc.riv',
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

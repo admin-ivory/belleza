@@ -23,7 +23,6 @@ import 'package:user/app/controller/filter_controller.dart';
 import 'package:user/app/controller/individual_checkout_controller.dart';
 import 'package:user/app/controller/product_cart_controller.dart';
 import 'package:user/app/controller/products_details_controller.dart';
-import 'package:user/app/controller/qikiru_controller.dart';
 import 'package:user/app/controller/search_controller.dart';
 import 'package:user/app/controller/service_cart_controller.dart';
 import 'package:user/app/controller/services_controller.dart';
@@ -39,10 +38,12 @@ import 'package:user/app/util/constant.dart';
 import 'package:user/app/util/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../backend/parse/qiriku_parser.dart';
 
-class HomeController extends GetxController implements GetxService {
-  final HomeParser parser;
-    List<SalonModel> _salonList = <SalonModel>[];
+class QirikuController extends GetxController implements GetxService {
+   final QirikuParser qirikuParser;
+
+  List<SalonModel> _salonList = <SalonModel>[];
   List<SalonModel> get salonList => _salonList;
 
   List<CategoriesModel> _categoriesList = <CategoriesModel>[];
@@ -70,26 +71,25 @@ class HomeController extends GetxController implements GetxService {
 
   bool haveData = false;
 
-  String title = '';
+  String position = '';
+  String firstName = '';
   String currencySide = AppConstants.defaultCurrencySide;
   String currencySymbol = AppConstants.defaultCurrencySymbol;
-
-  HomeController({required this.parser});
+  QirikuController({required this.qirikuParser});
 
 
 
   @override
   void onInit() {
     super.onInit();
-    currencySide = parser.getCurrencySide();
-    currencySymbol = parser.getCurrencySymbol();
-    title = parser.getAddressName();
+    firstName = qirikuParser.getFirstName();
+    position = qirikuParser.getAddressName();
     getHomeData();
   }
 
   Future<void> getHomeData() async {
-    var param = {"lat": parser.getLat(), "lng": parser.getLng()};
-    Response response = await parser.getHomeData(param);
+    var param = {"lat": qirikuParser.getLat(), "lng": qirikuParser.getLng()};
+    Response response = await qirikuParser.getHomeData(param);
     apiCalled = true;
 
     if (response.statusCode == 200) {
