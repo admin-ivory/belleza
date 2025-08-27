@@ -23,7 +23,6 @@ import 'package:user/app/controller/filter_controller.dart';
 import 'package:user/app/controller/individual_checkout_controller.dart';
 import 'package:user/app/controller/product_cart_controller.dart';
 import 'package:user/app/controller/products_details_controller.dart';
-import 'package:user/app/controller/qikiru_controller.dart';
 import 'package:user/app/controller/search_controller.dart';
 import 'package:user/app/controller/service_cart_controller.dart';
 import 'package:user/app/controller/services_controller.dart';
@@ -34,15 +33,14 @@ import 'package:user/app/controller/top_packages_controller.dart';
 import 'package:user/app/controller/top_products_controller.dart';
 import 'package:user/app/controller/top_specialist_controller.dart';
 import 'package:user/app/helper/router.dart';
-import 'package:user/app/helper/shared_pref.dart';
 import 'package:user/app/util/constant.dart';
 import 'package:user/app/util/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class HomeController extends GetxController implements GetxService {
   final HomeParser parser;
-    List<SalonModel> _salonList = <SalonModel>[];
+
+  List<SalonModel> _salonList = <SalonModel>[];
   List<SalonModel> get salonList => _salonList;
 
   List<CategoriesModel> _categoriesList = <CategoriesModel>[];
@@ -73,10 +71,7 @@ class HomeController extends GetxController implements GetxService {
   String title = '';
   String currencySide = AppConstants.defaultCurrencySide;
   String currencySymbol = AppConstants.defaultCurrencySymbol;
-
   HomeController({required this.parser});
-
-
 
   @override
   void onInit() {

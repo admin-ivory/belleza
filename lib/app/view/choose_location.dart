@@ -58,8 +58,8 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                 Text('Access Your'.tr),
                 const SizedBox(height: 5),
                 Text('Location'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontSize: 20, fontFamily: 'semi-bold')),
-                const SizedBox(height: 30),
-
+                const SizedBox(height: 50),
+                const SizedBox(height: 50),
                 const Stack(
                   children: [SizedBox(
                     height: 250,

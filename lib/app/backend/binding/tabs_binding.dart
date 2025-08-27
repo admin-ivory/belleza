@@ -18,7 +18,7 @@ class TabsBinding extends Bindings {
   @override
   void dependencies() async {
     Get.lazyPut(() => TabsController(parser: Get.find()), fenix: true);
-    Get.lazyPut(() => HomeController(parser: Get.find(), ), fenix: true);
+    Get.lazyPut(() => HomeController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => CategoriesController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => NearController(parser: Get.find()), fenix: true);
     Get.lazyPut(() => BookingController(parser: Get.find()), fenix: true);

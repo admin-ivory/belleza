@@ -61,7 +61,7 @@ class _ProductOrderDetailState extends State<ProductOrderDetail> {
                                             child: SizedBox.fromSize(
                                               size: const Size.fromRadius(30),
                                               child: FadeInImage(
-                                                image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.salonOrderInfo.salonInfo!.cover.toString()}'),
+                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.salonOrderInfo.salonInfo!.cover.toString()}'),
                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 30, width: 30);

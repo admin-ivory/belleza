@@ -14,9 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-import '../backend/parse/qiriku_parser.dart';
 import '../helper/qiriku_bot_intro.dart';
 
 
@@ -31,7 +28,6 @@ import 'package:flutter_skeleton_ui/flutter_skeleton_ui.dart';
 import 'package:zo_animated_border/widget/zo_mono_crome_border.dart';
 
 import '../helper/qiriku_bot.dart';
-import '../helper/shared_pref.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -41,21 +37,24 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
-  Future<String?> getAccessToken() async {
-    final prefs = await SharedPreferences.getInstance(); // obtenir l'instance SharedPreferences
-    return prefs.getString(Q_SharedPreferencesManager.keyAccessToken); // récupérer la valeur via la clé
-  }
-
   final CarouselSliderController _controller = CarouselSliderController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController? editTextController = TextEditingController();
   var top = 0.0;
-  bool isLogin = false;
-
-
-
+  bool isQirikuEnabled = false;
+  static const String _ahynaKey = 'isQirikuEnabled';
+  @override
+  void initState() {
+    super.initState();
+    _loadQirikuStatus();
+  }
+  Future<void> _loadQirikuStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isQirikuEnabled = prefs.getBool(_ahynaKey) ?? false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -519,7 +518,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       const SizedBox(height: 10),
-
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -917,37 +915,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 )
               : const SizedBox(),
-            floatingActionButton: DraggableChatButton(
-              onPressed: () async {
-                bool loggedIn = await Get.find<QirikuParser>().isLoggedIn();
-                if (loggedIn) {
-                  // L'utilisateur est connecté, faire l'action souhaitée
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const QirikuIntroPage()));
-                } else {
-                  // L'utilisateur n'est pas connecté, afficher un message ou rediriger
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please log in first')),
-                  );
-                }
-              },
-
-              riveAsset: 'assets/rive/eye_afro.riv', // chemin valide vers ton animation Rive
-              q_sharedPreferencesManager:
-              Q_SharedPreferencesManager(),
-            ),
-
-
-
-
-          );
-
-
-
-          //-------------------------------------------------
+          floatingActionButton: DraggableChatButton(
+            onPressed: () {
+              // This is the function that gets executed when the button is pressed.
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const QirikuIntroPage()),
+              );
+            },
+            riveAsset: 'assets/rive/eye_afro.riv',
+          ),
+        );
 
 
       },
     );
   }
-
 }

@@ -38,7 +38,13 @@ Future<void> _loadQirikuStatus() async {
       isQirikuEnabled = prefs.getBool(_ahynaKey) ?? false;
     });
 }
-
+Future<void> _saveQirikuStatus(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isQirikuEnabled = value;
+    });
+    await prefs.setBool(_ahynaKey, value);
+}
   /*@override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(builder: (value) {
@@ -272,7 +278,7 @@ Future<void> _loadQirikuStatus() async {
                         image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.cover}'),
                         placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                         imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset('assets/images/logo_afro.png', fit: BoxFit.cover, height: 80, width: 80);
+                          return Image.asset('assets/images/wafro.png', fit: BoxFit.cover, height: 80, width: 80);
                         },
                         fit: BoxFit.cover,
                       ),
@@ -360,6 +366,9 @@ Future<void> _loadQirikuStatus() async {
                 leading: const Icon(Icons.message_outlined, color: ThemeProvider.greyColor),
                 title: Text('Chats'.tr, style: sidemenuTitle()))
                 : const SizedBox(),
+
+            // Le widget QirikuToggle corrigé pour le switch
+            const QirikuToggle(riveAsset: 'assets/rive/oni.riv', stateMachineName: 'State Machine 1'),
 
             // Section 2: À propos et déconnexion
             const Padding(
