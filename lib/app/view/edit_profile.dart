@@ -80,7 +80,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           width: 100,
                           height: 100,
                           child: FadeInImage(
-                            image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.cover.toString()}'),
+                            image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.cover.toString()}'),
                             placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                             imageErrorBuilder: (context, error, stackTrace) {
                               return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 100, width: 100);

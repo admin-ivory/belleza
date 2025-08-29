@@ -232,7 +232,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                   child: SizedBox.fromSize(
                                                                     size: const Size.fromRadius(40),
                                                                     child: FadeInImage(
-                                                                      image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.savedInCart.packages![i].specialist![specialistIndex].cover}'),
+                                                                      image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.savedInCart.packages![i].specialist![specialistIndex].cover}'),
                                                                       placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                                       imageErrorBuilder: (context, error, stackTrace) {
                                                                         return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);

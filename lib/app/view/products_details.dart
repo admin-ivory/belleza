@@ -90,7 +90,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                               height: 180,
                               width: double.infinity,
                               child: FadeInImage(
-                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.productsList.cover.toString()}'),
+                                image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.productsList.cover.toString()}'),
                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                 imageErrorBuilder: (context, error, stackTrace) {
                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
@@ -315,7 +315,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                             child: SizedBox.fromSize(
                                               size: const Size.fromRadius(35),
                                               child: FadeInImage(
-                                                image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.relatedList[index].cover.toString()}'),
+                                                image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.relatedList[index].cover.toString()}'),
                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                 imageErrorBuilder: (context, error, stackTrace) {
                                                   return Image.asset('assets/images/notfound.png', fit: BoxFit.cover);
