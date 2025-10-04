@@ -66,7 +66,8 @@ class HomeController extends GetxController implements GetxService {
   }
 
   // add by me
-
+  String cover = '';
+  String firstName = '';
 
   bool haveData = false;
 

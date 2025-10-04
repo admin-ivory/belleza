@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../backend/parse/qiriku_parser.dart';
+import '../helper/custom_appbar.dart';
 import '../helper/qiriku_bot_intro.dart';
 
 
@@ -32,6 +33,11 @@ import 'package:zo_animated_border/widget/zo_mono_crome_border.dart';
 
 import '../helper/qiriku_bot.dart';
 import '../helper/shared_pref.dart';
+import '../util/app_bar/appbar_subtitle_4.dart';
+import '../util/app_style.dart';
+import '../util/widget/custom_icon_button.dart';
+import '../util/widget/custom_image_view.dart';
+import 'account.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -62,6 +68,47 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (value) {
         return
           Scaffold(
+            appBar:  CustomAppBar(
+                height: getVerticalSize(75),
+                leadingWidth: getVerticalSize(61),
+                leading: CustomImageView(
+                    imagePath: ImageConstant.imgEllipse1445x45,
+                    height: getSize(45),
+                    width: getSize(45),
+                    margin: getMargin(left: 16, top: 30)),
+                title: Padding(
+                    padding: getPadding(left: 11, top: 30),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AppbarSubtitle4(text: "lbl_welcome".tr),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("${value.firstName} ${accountController.lastName}".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtSFProTextBold22))
+                        ])),
+                actions: [
+                  CustomIconButton(
+                      onTap: () {
+                        Get.dialog(
+                          AlertDialog(
+                            backgroundColor: Colors.transparent,
+                            contentPadding: EdgeInsets.zero,
+                            insetPadding: EdgeInsets.only(left: 0),
+                            content: Container(),
+                          ),
+                        );
+                      },
+                      height: 40,
+                      width: 40,
+                      margin: getMargin(left: 16, top: 30, right: 16),
+                      variant: IconButtonVariant.FillPink50,
+                      child: CustomImageView(
+                          svgPath: ImageConstant.imgEllipse1445x45))
+                ]),
           key: _scaffoldKey,
           drawerEnableOpenDragGesture: false,
           drawer: const SideMenuScreen(),

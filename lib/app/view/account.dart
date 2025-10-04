@@ -12,6 +12,13 @@ import 'package:user/app/controller/account_controller.dart';
 import 'package:user/app/util/theme.dart';
 import 'package:user/app/env.dart';
 
+import '../helper/custom_appbar.dart';
+import '../util/app_bar/appbar_subtitle_4.dart';
+import '../util/app_decoration.dart';
+import '../util/app_style.dart';
+import '../util/widget/custom_icon_button.dart';
+import '../util/widget/custom_image_view.dart';
+
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
@@ -24,10 +31,34 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
       builder: (value) {
-        return Scaffold(
+        return
+         /* Scaffold(
           backgroundColor: Colors.white,
           appBar: value.parser.haveLoggedIn() == true
-              ? AppBar(
+              ?  CustomAppBar(
+              height: getVerticalSize(75),
+              leadingWidth: getVerticalSize(61),
+              leading: CustomImageView(
+                  imagePath: ImageConstant.imgEllipse1445x45,
+                  height: getSize(45),
+                  width: getSize(45),
+                  margin: getMargin(left: 16, top: 30)),
+              title: Padding(
+                  padding: getPadding(left: 11, top: 30),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppbarSubtitle4(text: "lbl_welcome".tr),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('${value.firstName} ${value.lastName}',
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtSFProTextBold22))
+                      ])),
+            )
+         /* AppBar(
                   automaticallyImplyLeading: false,
                   backgroundColor: ThemeProvider.appColor,
                   elevation: 3,
@@ -68,7 +99,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ],
                   ),
-                )
+                )*/
               : AppBar(
                   automaticallyImplyLeading: false,
                   backgroundColor: ThemeProvider.appColor,
@@ -82,9 +113,59 @@ class _AccountScreenState extends State<AccountScreen> {
                   Container(
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: ThemeProvider.whiteColor, boxShadow: const [BoxShadow(color: ThemeProvider.greyColor, blurRadius: 5.0)]),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: ThemeProvider.whiteColor, boxShadow: const [BoxShadow(color: ThemeProvider.transparent, blurRadius: 5.0)]),
                     child: Column(
                       children: [
+
+                        value.parser.haveLoggedIn() == true ?
+                        Container(
+                          margin: getMargin(
+                            top: 24,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "lbl_profile".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ) : const SizedBox(),
+                        /*InkWell(onTap: () => value.onEdit(), child: _buildList(Icons.account_circle_outlined, 'Edit Profile'.tr)) : const SizedBox(),*/
                         value.parser.haveLoggedIn() == false ? InkWell(onTap: () => value.onLogin(), child: _buildList(Icons.lock_clock_outlined, 'Sign In / Sign Up'.tr)) : const SizedBox(),
                         value.parser.haveLoggedIn() == true ? InkWell(onTap: () => value.onEdit(), child: _buildList(Icons.account_circle_outlined, 'Edit Profile'.tr)) : const SizedBox(),
                         value.parser.haveLoggedIn() == true ? InkWell(onTap: () => value.onProductOrder(), child: _buildList(Icons.add_shopping_cart, 'Product Order'.tr)) : const SizedBox(),
@@ -117,6 +198,469 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
           ),
+        );*/
+        SafeArea(
+          child: Padding(
+            padding: getPadding(top: 40, right: 16, left: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomImageView(
+                  imagePath: ImageConstant.imgEllipse1445x45,
+                  height: getSize(
+                    100,
+                  ),
+                  width: getSize(
+                    100,
+                  ),
+                  radius: BorderRadius.circular(
+                    getHorizontalSize(
+                      50,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: getPadding(
+                    top: 16,
+                  ),
+                  child: Text(
+                    "${value.firstName} ${value.lastName}".tr,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: AppStyle.txtSFProTextBold28,
+                  ),
+                ),
+                Expanded(
+                  child: ListView(
+                    primary: true,
+                    shrinkWrap: false,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                         value.onLogin();
+                        },
+                        child:
+                        Container(
+                          margin: getMargin(
+                            top: 24,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "lbl_login".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          value.onChangePassword();
+                        },
+                        child:
+                        Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  'Change Password',
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      //language
+                      GestureDetector(
+                        onTap: () {
+                          value.onWallet();
+                        },
+                        child: Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  'Our Package',
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      //chat
+                      GestureDetector(
+                        onTap: () {
+                          value.onProductOrder();
+                        },
+                        child: Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "Porduct Order".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                       //   Get.toNamed(AppRoutes.paymentOneScreen);
+                        },
+                        child: Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "lbl_payment_method".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                        //  Get.toNamed(AppRoutes.privacyAndPolicyScreen);
+                        },
+                        child: Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "msg_privacy_and_policy".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          //Get.toNamed(AppRoutes.notificationScreen);
+                        },
+                        child: Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "lbl_assistance".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+
+                        },
+                        child: Container(
+                          margin: getMargin(
+                            top: 20,
+                          ),
+                          padding: getPadding(
+                            all: 16,
+                          ),
+                          decoration: AppDecoration.fillGray50.copyWith(
+                            borderRadius: BorderRadiusStyle.roundedBorder16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(
+                                  left: 16,
+                                ),
+                                child: Text(
+                                  "lbl_log_out".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtBody,
+                                ),
+                              ),
+                              Spacer(),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgArrowright,
+                                height: getSize(
+                                  24,
+                                ),
+                                width: getSize(
+                                  24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         );
       },
     );
@@ -142,4 +686,9 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
     );
   }
+}
+
+class ImageConstant {
+  static String imgEllipse1445x45 = 'assets/images/img_ellipse14_45x45.png';
+  static String imgArrowright = 'assets/images/img_arrowright.svg';
 }
