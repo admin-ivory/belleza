@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           AppbarSubtitle4(text: "lbl_welcome".tr),
                           Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("${value.firstName} ${accountController.lastName}".tr,
+                              child: Text("${value.firstName}",
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtSFProTextBold22))

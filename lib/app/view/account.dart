@@ -205,8 +205,27 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                value.parser.haveLoggedIn() == true
+                    ?
                 CustomImageView(
-                  imagePath: ImageConstant.imgEllipse1445x45,
+                  url: '${Environments.apiBaseURL}storage/images/${value.cover}',
+                  placeHolder: ImageConstant.imgEllipse1445x45,
+                  height: getSize(
+                    100,
+                  ),
+                  width: getSize(
+                    100,
+                  ),
+                  radius: BorderRadius.circular(
+                    getHorizontalSize(
+                      50,
+                    ),
+                  ),
+                )
+                    :
+                CustomImageView(
+                  url: '${Environments.apiBaseURL}storage/images/${value.cover}',
+                  placeHolder: ImageConstant.imgEllipse1445x45,
                   height: getSize(
                     100,
                   ),
@@ -235,6 +254,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     primary: true,
                     shrinkWrap: false,
                     children: [
+                      value.parser.haveLoggedIn() == false
+                          ?
                       GestureDetector(
                         onTap: () {
                          value.onLogin();
@@ -247,7 +268,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           padding: getPadding(
                             all: 16,
                           ),
-                          decoration: AppDecoration.fillGray50.copyWith(
+                          decoration: AppDecoration.outlinePink8001.copyWith(
                             borderRadius: BorderRadiusStyle.roundedBorder16,
                           ),
                           child: Row(
@@ -268,7 +289,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   left: 16,
                                 ),
                                 child: Text(
-                                  "lbl_login".tr,
+                                  "login".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtBody,
@@ -287,7 +308,8 @@ class _AccountScreenState extends State<AccountScreen> {
                             ],
                           ),
                         ),
-                      ),
+                      )
+                          : const SizedBox(),
                       GestureDetector(
                         onTap: () {
                           value.onChangePassword();
@@ -300,7 +322,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           padding: getPadding(
                             all: 16,
                           ),
-                          decoration: AppDecoration.fillGray50.copyWith(
+                          decoration: AppDecoration.outlinePink8001.copyWith(
                             borderRadius: BorderRadiusStyle.roundedBorder16,
                           ),
                           child: Row(
@@ -341,10 +363,9 @@ class _AccountScreenState extends State<AccountScreen> {
                           ),
                         ),
                       ),
-                      //language
                       GestureDetector(
                         onTap: () {
-                          value.onWallet();
+                          value.onLanguages();
                         },
                         child: Container(
                           margin: getMargin(
@@ -374,7 +395,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   left: 16,
                                 ),
                                 child: Text(
-                                  'Our Package',
+                                  'Change Language'.tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtBody,
@@ -394,7 +415,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           ),
                         ),
                       ),
-                      //chat
                       GestureDetector(
                         onTap: () {
                           value.onProductOrder();
@@ -449,7 +469,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                       //   Get.toNamed(AppRoutes.paymentOneScreen);
+                          value.onWallet();
                         },
                         child: Container(
                           margin: getMargin(
@@ -479,7 +499,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   left: 16,
                                 ),
                                 child: Text(
-                                  "lbl_payment_method".tr,
+                                  "Payment Method".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtBody,
@@ -501,7 +521,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                        //  Get.toNamed(AppRoutes.privacyAndPolicyScreen);
+                          value.onAppPages('Privacy Policy'.tr, '2');
                         },
                         child: Container(
                           margin: getMargin(
@@ -531,7 +551,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   left: 16,
                                 ),
                                 child: Text(
-                                  "msg_privacy_and_policy".tr,
+                                  "Privacy and Policy".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtBody,
@@ -583,7 +603,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   left: 16,
                                 ),
                                 child: Text(
-                                  "lbl_assistance".tr,
+                                  "assistance".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtBody,
@@ -635,7 +655,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   left: 16,
                                 ),
                                 child: Text(
-                                  "lbl_log_out".tr,
+                                  "Log Out".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtBody,

@@ -11,6 +11,13 @@ import 'package:flutter/material.dart';
 const typeTheme = Typography.whiteMountainView;
 
 class ThemeProvider {
+  static Color fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+  static Color appColors = fromHex('#6ca81650');
   static const appColor = Color.fromARGB(255, 211, 90, 0);
   static const secondaryAppColor = Color.fromARGB(255, 35, 74, 214);
   static const whiteColor = Colors.white;
