@@ -18,8 +18,8 @@ class ThemeProvider {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
   static Color appColors = fromHex('#6ca81650');
-  static const appColor = Color.fromARGB(255, 211, 90, 0);
-  static const secondaryAppColor = Color.fromARGB(255, 35, 74, 214);
+  static const appColor = Color.fromARGB(255, 150, 103, 161);
+  static const secondaryAppColor = Color.fromARGB(255, 158, 83, 26);
   static const whiteColor = Colors.white;
   static const blackColor = Color(0xFF000000);
   static const greyColor = Colors.grey;

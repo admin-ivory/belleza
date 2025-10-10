@@ -41,6 +41,7 @@ class _IntroScreenState extends State<IntroScreen> {
           body: _buildBody(),
           bottomNavigationBar: SizedBox(
             height: 70,
+
             child: Column(
               children: [
                 if (currentIndex == 0)
@@ -111,6 +112,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 return Container(
                   width: double.infinity,
                   height: double.infinity,
+
                   margin: const EdgeInsets.symmetric(horizontal: 0),
                   child: Column(
                     children: [
@@ -139,11 +141,12 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         Container(
             height: 300,
-          /*  decoration: const BoxDecoration(
+           decoration: const BoxDecoration(
+             borderRadius: BorderRadius.all(Radius.circular(10)),
                 image: DecorationImage(
-                    image: RiveAnimation.assets('assets/sliders/1.png'),
-                    fit: BoxFit.contain))*/
-          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+                    image: AssetImage('assets/images/img_ellipse14_45x45.png'),
+                    fit: BoxFit.contain))
+
         ),
 
         Column(

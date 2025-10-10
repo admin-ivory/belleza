@@ -13,6 +13,9 @@ import 'package:user/app/controller/choose_location_controller.dart';
 import 'package:user/app/util/constant.dart';
 import 'package:user/app/util/theme.dart';
 
+import '../helper/custom_appbar.dart';
+import '../util/widget/custom_image_view.dart';
+
 class ChooseLocationScreen extends StatefulWidget {
   const ChooseLocationScreen({super.key});
 
@@ -60,12 +63,29 @@ class _ChooseLocationScreenState extends State<ChooseLocationScreen> {
                 Text('Location'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontSize: 20, fontFamily: 'semi-bold')),
                 const SizedBox(height: 30),
 
-                const Stack(
+                Stack(
                   children: [SizedBox(
-                    height: 250,
-                    child: RiveAnimation.asset(
-                        fit: BoxFit.cover,
-                        'assets/rive/location.riv'),
+                    height: 200,
+                    child:
+                    Column(
+                      children: [
+                        CustomImageView(
+                          imagePath: ImageConstant.logoBelleza,
+                          placeHolder: ImageConstant.imgEllipse1445x45,
+                          height: getSize(
+                            200,
+                          ),
+                          width: getSize(
+                            200,
+                          ),
+                          radius:  BorderRadius.circular(
+                            getHorizontalSize(
+                              50,
+                            ),
+                          ),
+                        ),
+                      ]
+                    )
                   )
 
                   ],

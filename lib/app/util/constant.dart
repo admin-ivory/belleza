@@ -9,6 +9,17 @@
 import 'package:user/app/backend/models/language_model.dart';
 import 'package:user/app/env.dart';
 
+
+class ImageConstant {
+  static String imgEllipse1445x45 = 'assets/images/img_ellipse14_45x45.png';
+  static String imgArrowright = 'assets/images/img_arrowright.svg';
+  static String logoBelleza = 'assets/images/logo.png';
+  static String slideHome1 = 'assets/images/slid1.png';
+  static String slideHome2 = 'assets/images/slid2.png';
+  static String slideHome3 = 'assets/images/slid3.png';
+}
+
+
 class AppConstants {
   static const String appName = Environments.appName;
   static const String companyName = Environments.companyName;

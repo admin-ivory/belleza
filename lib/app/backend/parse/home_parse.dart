@@ -45,4 +45,8 @@ class HomeParser {
   String getCurrencySymbol() {
     return sharedPreferencesManager.getString('currencySymbol') ?? AppConstants.defaultCurrencySymbol;
   }
+  bool haveLoggedIn() {
+    return sharedPreferencesManager.getString('uid') != '' && sharedPreferencesManager.getString('uid') != null ? true : false;
+  }
+
 }

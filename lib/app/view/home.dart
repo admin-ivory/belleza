@@ -35,9 +35,10 @@ import '../helper/qiriku_bot.dart';
 import '../helper/shared_pref.dart';
 import '../util/app_bar/appbar_subtitle_4.dart';
 import '../util/app_style.dart';
+import '../util/constant.dart';
 import '../util/widget/custom_icon_button.dart';
 import '../util/widget/custom_image_view.dart';
-import 'account.dart';
+
 
 
 class HomeScreen extends StatefulWidget {
@@ -68,11 +69,13 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (value) {
         return
           Scaffold(
-            appBar:  CustomAppBar(
+            appBar: value.parser.haveLoggedIn() == true ?
+            CustomAppBar(
                 height: getVerticalSize(75),
                 leadingWidth: getVerticalSize(61),
                 leading: CustomImageView(
-                    imagePath: ImageConstant.imgEllipse1445x45,
+                    url: ('${Environments.apiBaseURL}storage/images/${value.cover}'),
+                    placeHolder: ImageConstant.logoBelleza,
                     height: getSize(45),
                     width: getSize(45),
                     margin: getMargin(left: 16, top: 30)),
@@ -107,7 +110,48 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: getMargin(left: 16, top: 30, right: 16),
                       variant: IconButtonVariant.FillPink50,
                       child: CustomImageView(
-                          svgPath: ImageConstant.imgEllipse1445x45))
+                          svgPath: ImageConstant.imgArrowright))
+                ]):
+            CustomAppBar(
+                height: getVerticalSize(75),
+                leadingWidth: getVerticalSize(61),
+                leading: CustomImageView(
+                    imagePath: ImageConstant.logoBelleza,
+                    height: getSize(45),
+                    width: getSize(45),
+                    margin: getMargin(left: 16, top: 30)),
+                title: Padding(
+                    padding: getPadding(left: 11, top: 30),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AppbarSubtitle4(text: "Welcome".tr),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Afro Queen",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtSFProTextBold22))
+                        ])),
+                actions: [
+                  CustomIconButton(
+                      onTap: () {
+                        Get.dialog(
+                          AlertDialog(
+                            backgroundColor: Colors.transparent,
+                            contentPadding: EdgeInsets.zero,
+                            insetPadding: EdgeInsets.only(left: 0),
+                            content: Container(),
+                          ),
+                        );
+                      },
+                      height: 40,
+                      width: 40,
+                      margin: getMargin(left: 16, top: 30, right: 16),
+                      variant: IconButtonVariant.FillPink50,
+                      child: CustomImageView(
+                          svgPath: ImageConstant.imgArrowright))
                 ]),
           key: _scaffoldKey,
           drawerEnableOpenDragGesture: false,
@@ -300,13 +344,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   // Overlay dégradé pour le texte lisible
                                   Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       gradient: LinearGradient(
                                         colors: [Colors.black45, Colors.transparent],
                                         begin: Alignment.bottomCenter,
                                         end: Alignment.topCenter,
                                       ),
-                                      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
+                                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
                                     ),
                                   ),
                                   Center(
@@ -333,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const SizedBox(height: 8),
                                         Text(
                                           'Find and book best services'.tr,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: ThemeProvider.appColor,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 24,

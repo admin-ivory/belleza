@@ -16,6 +16,7 @@ import '../helper/custom_appbar.dart';
 import '../util/app_bar/appbar_subtitle_4.dart';
 import '../util/app_decoration.dart';
 import '../util/app_style.dart';
+import '../util/constant.dart';
 import '../util/widget/custom_icon_button.dart';
 import '../util/widget/custom_image_view.dart';
 
@@ -209,7 +210,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     ?
                 CustomImageView(
                   url: '${Environments.apiBaseURL}storage/images/${value.cover}',
-                  placeHolder: ImageConstant.imgEllipse1445x45,
+                  placeHolder: ImageConstant.logoBelleza,
                   height: getSize(
                     100,
                   ),
@@ -224,7 +225,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 )
                     :
                 CustomImageView(
-                  url: '${Environments.apiBaseURL}storage/images/${value.cover}',
+                  imagePath: ImageConstant.logoBelleza,
                   placeHolder: ImageConstant.imgEllipse1445x45,
                   height: getSize(
                     100,
@@ -243,7 +244,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     top: 16,
                   ),
                   child: Text(
-                    "${value.firstName} ${value.lastName}".tr,
+                    "Afro Queen".tr,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtSFProTextBold28,
@@ -254,426 +255,102 @@ class _AccountScreenState extends State<AccountScreen> {
                     primary: true,
                     shrinkWrap: false,
                     children: [
-                      value.parser.haveLoggedIn() == false
-                          ?
-                      GestureDetector(
-                        onTap: () {
-                         value.onLogin();
-                        },
-                        child:
-                        Container(
-                          margin: getMargin(
-                            top: 24,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.outlinePink8001.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  "login".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                          : const SizedBox(),
-                      GestureDetector(
-                        onTap: () {
-                          value.onChangePassword();
-                        },
-                        child:
-                        Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.outlinePink8001.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  'Change Password',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                      // 1. Connexion / Inscription (Affiche si déconnecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: "login".tr,
+                        onTap: value.onLogin,
+                        showIfLoggedIn: false, // Afficher si NON connecté
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          value.onLanguages();
-                        },
-                        child: Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.fillGray50.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  'Change Language'.tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          value.onProductOrder();
-                        },
-                        child: Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.fillGray50.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  "Porduct Order".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          value.onWallet();
-                        },
-                        child: Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.fillGray50.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  "Payment Method".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          value.onAppPages('Privacy Policy'.tr, '2');
-                        },
-                        child: Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.fillGray50.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  "Privacy and Policy".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          //Get.toNamed(AppRoutes.notificationScreen);
-                        },
-                        child: Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.fillGray50.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  "assistance".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
 
+                      // 2. Changer le mot de passe (Affiche si connecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: 'Change Password',
+                        onTap: value.onChangePassword,
+                        showIfLoggedIn: true, // Afficher si connecté
+                      ),
+
+                      // 3. Langue (Toujours affiché, ou affiche si déconnecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: 'Change Language'.tr,
+                        onTap: value.onLanguages,
+                        showIfLoggedIn: false, // On assume qu'on le montre aux non-connectés
+                        isGrayBackground: true,
+                      ),
+
+                      // 4. Commande de produit (Affiche si connecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: "Porduct Order".tr,
+                        onTap: value.onProductOrder,
+                        showIfLoggedIn: true,
+                      ),
+                      _buildProfileItem(
+                        value: value,
+                        label: "Adress".tr,
+                        onTap: value.onProductOrder,
+                        showIfLoggedIn: true,
+                      ),
+
+                      // 5. Méthode de paiement (Affiche si connecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: "Payment Method".tr,
+                        onTap: value.onWallet,
+                        showIfLoggedIn: true,
+                      ),
+
+                      // 6. Politique de confidentialité (Toujours affiché)
+                      _buildProfileItem(
+                        value: value,
+                        label: "Privacy and Policy".tr,
+                        onTap: () => value.onAppPages('Privacy Policy'.tr, '2'),
+                        showIfLoggedIn: false, // On assume qu'on le montre aux non-connectés
+                        isGrayBackground: true,
+                      ),
+                       // 6. Politique de confidentialité (Toujours affiché)
+                      _buildProfileItem(
+                        value: value,
+                        label: "FAQ".tr,
+                        onTap: () => value.onAppPages('Frequently Asked Questions'.tr, '5'),
+                        showIfLoggedIn: false, // On assume qu'on le montre aux non-connectés
+                        isGrayBackground: true,
+                      ),
+
+                      // 7. Chat (Affiche si connecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: "Chat".tr,
+                        onTap: () {
+                          /* Get.toNamed(AppRoutes.notificationScreen); */
                         },
-                        child: Container(
-                          margin: getMargin(
-                            top: 20,
-                          ),
-                          padding: getPadding(
-                            all: 16,
-                          ),
-                          decoration: AppDecoration.fillGray50.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 16,
-                                ),
-                                child: Text(
-                                  "Log Out".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBody,
-                                ),
-                              ),
-                              Spacer(),
-                              CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
-                                height: getSize(
-                                  24,
-                                ),
-                                width: getSize(
-                                  24,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        showIfLoggedIn: true,
+                      ),
+
+                      // 8. Déconnexion (Affiche si connecté)
+                      _buildProfileItem(
+                        value: value,
+                        label: "Log Out".tr,
+                        onTap: () {
+                          value.logout();
+                        },
+                        showIfLoggedIn: true,
+                      ),
+
+                      _buildProfileItem(
+                        value: value,
+                        label: "About App/Social".tr,
+                        onTap: (){value.onAppPages('About us'.tr, '1');},
+                        showIfLoggedIn: false,
+                        isGrayBackground: true,// Afficher si NON connecté
+                      ),
+                      _buildProfileItem(
+                        value: value,
+                        label: "Business Subscribe".tr,
+                        onTap: value.onLogin,
+                        showIfLoggedIn: false, // Afficher si NON connecté
                       ),
                     ],
                   ),
@@ -686,29 +363,110 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  Widget _buildList(icn, txt) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          CircleAvatar(backgroundColor: ThemeProvider.appColor, child: Icon(icn, color: Colors.white)),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: Text('$txt', overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 14, fontFamily: 'bold'))),
-                const Icon(Icons.chevron_right),
-              ],
-            ),
+  Widget _buildProfileItem({
+    required dynamic value, // L'instance du contrôleur GetX
+    required String label,
+    required VoidCallback onTap,
+    required bool showIfLoggedIn, // TRUE = Afficher si connecté
+    bool isGrayBackground = false, // Vrai pour les sections Privacy/Langue
+  }) {
+    bool isLoggedIn = value.parser.haveLoggedIn();
+    bool shouldShow = isLoggedIn == showIfLoggedIn;
+
+    // Cas spécial pour les éléments toujours visibles (ex: Privacy Policy)
+    if (showIfLoggedIn == true && !isLoggedIn) {
+      shouldShow = true; // Permet aux éléments d'être affichés aux invités s'ils sont jugés importants.
+    }
+
+    if (isLoggedIn == false && showIfLoggedIn == true) {
+      // Si l'utilisateur est déconnecté, mais que l'élément n'est affiché qu'aux connectés, on le cache.
+      shouldShow = false;
+    }
+
+    // Si l'élément est destiné à être affiché uniquement si l'utilisateur n'est PAS connecté
+    if (isLoggedIn == true && showIfLoggedIn == false) {
+      // C'est la ligne pour les éléments "Login" ou "Sign Up"
+      shouldShow = false;
+    }
+
+
+    if (!shouldShow) {
+      // Cas où la condition n'est pas remplie, on retourne un widget vide
+      // Le contrôle est inversé ici pour être plus simple
+      if (showIfLoggedIn == true && !isLoggedIn) {
+        // C'est un élément de connexion. On le montre s'il n'y a pas de session.
+        shouldShow = false;
+      }
+    }
+
+
+    // Logique simplifiée pour éviter le code répétitif
+    if (isLoggedIn && !showIfLoggedIn) {
+      // Si l'utilisateur est connecté et l'élément ne doit pas l'être (ex: Login Button), on le cache.
+      return const SizedBox.shrink();
+    }
+    if (!isLoggedIn && showIfLoggedIn) {
+      // Si l'utilisateur n'est pas connecté et l'élément doit l'être (ex: Logout Button), on le cache.
+      return const SizedBox.shrink();
+    }
+
+
+    // Le cas où l'élément est destiné à être toujours affiché (comme Privacy Policy)
+    // Utilisons une convention où 'showIfLoggedIn' peut être ignoré pour toujours afficher.
+
+    // Si l'élément est destiné aux connectés (true) ou aux déconnectés (false)
+    // Si l'élément est destiné à être toujours visible (par exemple, si vous ne passez aucune condition booléenne)
+
+    // Utilisons la logique de base
+    if (isLoggedIn && showIfLoggedIn || !isLoggedIn && !showIfLoggedIn) {
+      // Exécuter l'affichage
+    } else {
+      // Cacher l'affichage
+      return const SizedBox.shrink();
+    }
+
+    // Correction de la logique pour un cas simple :
+    // Si l'élément est pour les utilisateurs connectés ET l'utilisateur est connecté, OU si l'élément est pour les non-connectés ET l'utilisateur n'est PAS connecté.
+    if ((showIfLoggedIn && isLoggedIn) || (!showIfLoggedIn && !isLoggedIn)) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: getMargin(top: 20),
+          padding: getPadding(all: 16),
+          decoration: (isGrayBackground ? AppDecoration.fillGray50 : AppDecoration.outlinePink8001).copyWith(
+            borderRadius: BorderRadiusStyle.roundedBorder16,
           ),
-        ],
-      ),
-    );
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomImageView(
+                svgPath: ImageConstant.imgArrowright,
+                height: getSize(24),
+                width: getSize(24),
+              ),
+              Padding(
+                padding: getPadding(left: 16),
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: AppStyle.txtBody,
+                ),
+              ),
+              const Spacer(),
+              CustomImageView(
+                svgPath: ImageConstant.imgArrowright,
+                height: getSize(24),
+                width: getSize(24),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }
 
-class ImageConstant {
-  static String imgEllipse1445x45 = 'assets/images/img_ellipse14_45x45.png';
-  static String imgArrowright = 'assets/images/img_arrowright.svg';
-}
