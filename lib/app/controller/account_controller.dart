@@ -21,6 +21,8 @@ import 'package:user/app/controller/wallet_controller.dart';
 import 'package:user/app/helper/router.dart';
 import 'package:user/app/util/theme.dart';
 
+import 'business_register_controller.dart';
+
 class AccountController extends GetxController implements GetxService {
   final AccountParser parser;
 
@@ -90,6 +92,11 @@ class AccountController extends GetxController implements GetxService {
   void onWallet() {
     Get.delete<WalletController>(force: true);
     Get.toNamed(AppRouter.getWalletRoutes());
+  }
+
+  void businessRegister() {
+    Get.delete<AccountController>(force: true);
+    Get.toNamed(AppRouter.getbusinessRegisterRoute());
   }
 
   void onReferAndEarn() {

@@ -130,6 +130,14 @@ class AppConstants {
   static const String registerComplaints = 'api/v1/complaints/registerNewComplaints';
   static const String logout = 'api/v1/profile/logout';
 
+  static const String verifyEmail = 'api/v1/auth/verifyEmail';
+  static const String verifyPhoneRegister = 'api/v1/auth/verifyPhone';
+  static const String verifyOTPEmail = 'api/v1/otp/verifyOTP';
+  static const String getHomeCities = 'api/v1/cities/getActiveCities';
+  static const String checkPhoneExist = 'api/v1/auth/checkPhoneExist';
+  static const String saveMyRequest = 'api/v1/register_request/save';
+  static const String getActiveCategories = 'api/v1/category/getPublic';
+
   // API Routes
 
   static List<LanguageModel> languages = [

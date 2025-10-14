@@ -8,6 +8,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart' as rive;
 import 'package:user/app/controller/product_order_detail_controller.dart';
 import 'package:user/app/util/theme.dart';
 import 'package:user/app/env.dart';
@@ -64,7 +65,7 @@ class _ProductOrderDetailState extends State<ProductOrderDetail> {
                                                 image: NetworkImage('${Environments.apiBaseURL}storage/images/${value.salonOrderInfo.salonInfo!.cover.toString()}'),
                                                 placeholder: const AssetImage("assets/images/placeholder.jpeg"),
                                                 imageErrorBuilder: (context, error, stackTrace) {
-                                                  return Image.asset('assets/images/notfound.png', fit: BoxFit.cover, height: 30, width: 30);
+                                                  return const rive.RiveAnimation.asset('assets/rive/empty', fit: BoxFit.cover);
                                                 },
                                                 fit: BoxFit.cover,
                                                 height: 30,

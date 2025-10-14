@@ -36,6 +36,7 @@ import '../helper/shared_pref.dart';
 import '../util/app_bar/appbar_subtitle_4.dart';
 import '../util/app_style.dart';
 import '../util/constant.dart';
+import '../util/widget/custom_card_widget.dart';
 import '../util/widget/custom_icon_button.dart';
 import '../util/widget/custom_image_view.dart';
 
@@ -111,7 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       variant: IconButtonVariant.FillPink50,
                       child: CustomImageView(
                           svgPath: ImageConstant.imgArrowright))
-                ]):
+                ])
+                :
             CustomAppBar(
                 height: getVerticalSize(75),
                 leadingWidth: getVerticalSize(61),
@@ -278,81 +280,63 @@ class _HomeScreenState extends State<HomeScreen> {
                               duration: const Duration(microseconds: 200),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(horizontal: 60),
-                                /*child: InkWell(
-                                  onTap: () => value.onSearch(),
-                                  child: Container(
-                                    decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Search salon, spa and barber'.tr, style: const TextStyle(color: ThemeProvider.greyColor, fontSize: 16)),
-                                        const Icon(Icons.search_outlined, color: ThemeProvider.greyColor, size: 16)
-                                      ],
-                                    ),
-                                  ),
-                                ),*/
-
                               ),
                             ),
-                            /*background: Container(
-                              height: 180,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/login.jpg'), fit: BoxFit.cover)),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(height: 5),
-                                    InkWell(
-                                      onTap: () => Get.toNamed(AppRouter.getFindLocationRoutes()),
-                                      child: Text(value.title, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontFamily: 'bold', fontSize: 14)),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text('Find and book best services'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontFamily: 'bold', fontSize: 22)),
-                                    const SizedBox(height: 10),
-                                    InkWell(
-                                      onTap: () => value.onSearch(),
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                                        decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text('Search salon, spa and barber'.tr, style: const TextStyle(color: ThemeProvider.greyColor, fontSize: 16)),
-                                            const Icon(Icons.search_outlined, color: ThemeProvider.greyColor, size: 16)
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),*/
-                            background: Container(
+                            background:
+                            Container(
                               height: 180,
                               width: double.infinity,
                               decoration: const BoxDecoration(
+                                // La décoration pour les coins arrondis et la couleur de fond
                                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/login.jpg'),
-                                  fit: BoxFit.cover,
-                                ),
                               ),
-                              child: Stack(
+                              child: Stack( // Utilisez un Stack pour superposer le contenu
                                 children: [
-                                  // Overlay dégradé pour le texte lisible
+                                  // 1. Le CarouselSlider (Arrière-plan dynamique)
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
+                                    child: CarouselSlider(
+                                      options: CarouselOptions(
+                                        height: 180,
+                                        autoPlay: true,
+                                        autoPlayInterval: const Duration(seconds: 4),
+                                        viewportFraction: 1.0,
+                                        enableInfiniteScroll: true,
+                                        scrollDirection: Axis.horizontal,
+                                      ),
+                                      items: [
+                                        // Listez vos chemins d'accès aux images ici
+                                        ImageConstant.slideHome1,
+                                        ImageConstant.slideHome2,
+                                        ImageConstant.slideHome3,
+                                      ].map((i) {
+                                        return Builder(
+                                          builder: (BuildContext context) {
+                                            return Image.asset(
+                                              i,
+                                              fit: BoxFit.cover,
+                                              width: MediaQuery.of(context).size.width,
+                                            );
+                                          },
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+
+                                  // 2. L'Overlay Dégradé pour lisibilité
                                   Container(
+                                    height: 180,
                                     decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
                                       gradient: LinearGradient(
-                                        colors: [Colors.black45, Colors.transparent],
+                                        colors: [Colors.black54, Colors.black12, Colors.transparent],
                                         begin: Alignment.bottomCenter,
                                         end: Alignment.topCenter,
                                       ),
-                                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
                                     ),
                                   ),
+
+                                  // 3. Le Contenu Texte et Recherche (Au-dessus de tout)
                                   Center(
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -370,8 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
                                                 fontFamily: 'Montserrat',
-                                                shadows: [Shadow(blurRadius: 5, color: Colors.black45)]
-                                            ),
+                                                shadows: [Shadow(blurRadius: 5, color: Colors.black45)]),
                                           ),
                                         ),
                                         const SizedBox(height: 8),
@@ -382,52 +365,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontWeight: FontWeight.w600,
                                               fontSize: 24,
                                               fontFamily: 'Montserrat',
-                                              shadows: [
-                                                Shadow(blurRadius: 5, color: Colors.black26)
-                                              ]
-                                          ),
+                                              shadows: [Shadow(blurRadius: 5, color: Colors.black26)]),
                                         ),
                                         const SizedBox(height: 12),
-                                        // Barre de recherche stylisée
-                                       InkWell(
-                                          onTap: () => value.onSearch(),
-                                          borderRadius: BorderRadius.circular(15),
-                                          child:
-                                          ZoMonoCromeBorder(
-                                            trackBorderColor: Colors.white,
-                                            cornerRadius: 50.0,
-                                            borderStyle: ZoMonoCromeBorderStyle.mirror,
-                                            borderWidth: 5.5,
 
-                                           child: Card(
-                                              elevation: 8,
-                                              color: Colors.white.withOpacity(0.95),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'Search salon, spa and barber'.tr,
-                                                      style: const TextStyle(
-                                                          color: ThemeProvider.greyColor,
-                                                          fontSize: 17,
-                                                          fontWeight: FontWeight.w400,
-                                                          fontFamily: 'Montserrat'
-                                                      ),
-                                                    ),
-                                                    const Icon(Icons.search_rounded, color: ThemeProvider.appColor, size: 22)
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ),
-                                                /*  InkWell(
+                                        // Barre de recherche stylisée (corrigée pour ne pas utiliser ZoMonoCromeBorder si non défini)
+                                        InkWell(
                                           onTap: () => value.onSearch(),
                                           borderRadius: BorderRadius.circular(15),
                                           child: Card(
@@ -448,21 +391,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         color: ThemeProvider.greyColor,
                                                         fontSize: 17,
                                                         fontWeight: FontWeight.w400,
-                                                        fontFamily: 'Montserrat'
-                                                    ),
+                                                        fontFamily: 'Montserrat'),
                                                   ),
                                                   const Icon(Icons.search_rounded, color: ThemeProvider.appColor, size: 22)
                                                 ],
                                               ),
                                             ),
                                           ),
-                                        ),---*/
-                                        ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
+                            )
 // add by me
                           );
                         },
@@ -677,7 +619,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Padding(
+                                     /* Padding(
                                         padding: const EdgeInsets.only(bottom: 20),
                                         child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
@@ -771,7 +713,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      ),*/
+                                      SaloonWidget(),
                                       const SizedBox(height: 10),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -972,7 +915,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const SizedBox(height: 20),
-                                      SizedBox(height: 80, width: 80, child: Image.asset("assets/images/no-data.png", fit: BoxFit.cover)),
+                                      const SizedBox(height: 80, width: 80, child: rive.RiveAnimation.asset("assets/rive/empty.riv", fit: BoxFit.cover)),
                                       const SizedBox(height: 30),
                                       Center(child: Text('No Data Found Near You!'.tr, style: const TextStyle(fontFamily: 'bold'))),
                                     ],

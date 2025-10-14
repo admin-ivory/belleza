@@ -25,7 +25,7 @@ import 'package:user/app/util/toast.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:user/app/env.dart';
 
-class RegisterController extends GetxController implements GetxService {
+class RegisterController extends GetxController with GetSingleTickerProviderStateMixin {
   final RegisterParser parser;
 
   final firstNameTextEditor = TextEditingController();
@@ -35,8 +35,8 @@ class RegisterController extends GetxController implements GetxService {
   final passwordTextEditor = TextEditingController();
   final referralCodeTextEditor = TextEditingController();
 
-  String countryCode = '+91';
-
+  String countryCode = '+33';
+  TabController? tabviewController;
   int verificationMethod = AppConstants.defaultVerificationForSignup;
   String smsName = AppConstants.defaultSMSGateway;
   String currencySide = AppConstants.defaultCurrencySide;
@@ -56,6 +56,8 @@ class RegisterController extends GetxController implements GetxService {
     verificationMethod = parser.getVerificationMethod();
     debugPrint('smsname$smsName');
     debugPrint('verification method$verificationMethod');
+    tabviewController = TabController(vsync: this, length: 2);
+
   }
 
   Future<void> onRegister() async {

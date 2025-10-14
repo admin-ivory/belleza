@@ -13,6 +13,7 @@ import 'package:user/app/util/theme.dart';
 import 'package:user/app/env.dart';
 
 import '../helper/custom_appbar.dart';
+import '../helper/router.dart';
 import '../util/app_bar/appbar_subtitle_4.dart';
 import '../util/app_decoration.dart';
 import '../util/app_style.dart';
@@ -349,7 +350,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       _buildProfileItem(
                         value: value,
                         label: "Business Subscribe".tr,
-                        onTap: value.onLogin,
+                        onTap: () => Get.toNamed(AppRouter.getbusinessRegisterRoute()),
                         showIfLoggedIn: false, // Afficher si NON connecté
                       ),
                     ],

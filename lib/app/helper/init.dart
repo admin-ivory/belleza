@@ -17,6 +17,7 @@ import 'package:user/app/backend/parse/all_categories_parse.dart';
 import 'package:user/app/backend/parse/app_pages_parse.dart';
 import 'package:user/app/backend/parse/appointment_detail_parse.dart';
 import 'package:user/app/backend/parse/booking_parse.dart';
+import 'package:user/app/backend/parse/business_register_parse.dart';
 import 'package:user/app/backend/parse/cart_parse.dart';
 import 'package:user/app/backend/parse/categories_list_parse.dart';
 import 'package:user/app/backend/parse/categories_parse.dart';
@@ -111,6 +112,7 @@ class MainBinding extends Bindings {
     Get.lazyPut(() => LoginParser(apiService: Get.find(), sharedPreferencesManager: Get.find()), fenix: true);
 
     Get.lazyPut(() => RegisterParser(apiService: Get.find(), sharedPreferencesManager: Get.find()), fenix: true);
+    Get.lazyPut(() => BusinessRegisterParser(apiService: Get.find(), sharedPreferencesManager: Get.find()), fenix: true);
 
     Get.lazyPut(() => ResetPasswordParser(apiService: Get.find(), sharedPreferencesManager: Get.find()), fenix: true);
 

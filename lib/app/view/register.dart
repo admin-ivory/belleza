@@ -13,6 +13,9 @@ import 'package:user/app/controller/register_controller.dart';
 import 'package:user/app/util/theme.dart';
 import 'package:get/get.dart';
 
+import '../helper/custom_appbar.dart';
+import '../util/button_tab.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -103,10 +106,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: <Widget>[
                       Expanded(
                         flex: 1,
-                        child: CountryCodePicker(
+                        child:
+                        CountryCodePicker(
                           onChanged: (e) => value.updateCountryCode(e.dialCode.toString()),
-                          initialSelection: 'IN',
-                          favorite: const ['+91', 'IN'],
+                          initialSelection: 'FR',
+                          favorite: const ['+33', 'FR'],
                           showCountryOnly: false,
                           showOnlyCountryWhenClosed: false,
                           alignLeft: false,

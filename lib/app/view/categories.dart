@@ -10,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_hero_transform/local_hero_transform.dart';
+import 'package:rive/rive.dart' as rive;
 import 'package:user/app/controller/categories_controller.dart';
 import 'package:user/app/controller/product_cart_controller.dart';
 import 'package:user/app/env.dart';
@@ -124,7 +125,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>  with SingleTickerP
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 80, width: 80, child: Image.asset("assets/images/no-data.png", fit: BoxFit.cover)),
+                const SizedBox(height: 80, width: 80, child: rive.RiveAnimation.asset("assets/rive/empty.riv", fit: BoxFit.cover)),
                 const SizedBox(height: 30),
                 Center(child: Text('No Data Found!'.tr, style: const TextStyle(fontFamily: 'bold'))),
               ],

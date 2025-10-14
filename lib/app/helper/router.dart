@@ -135,6 +135,9 @@ import 'package:user/app/view/web_payment.dart';
 import 'package:user/app/view/web_product_payment.dart';
 import 'package:user/app/view/welcome.dart';
 
+
+import '../view/busiregister.dart';
+
 class AppRouter {
   static const String initial = '/';
   static const String splash = '/splash';
@@ -200,8 +203,10 @@ class AppRouter {
   static const String topProducts = '/top_products';
   static const String addReviewsRoutes = '/add_review';
   static const String complaintsRoutes = '/complaints';
+  static const String businessRegister = '/busiregister';
 
   static String getInitialRoute() => initial;
+  static String getbusinessRegisterRoute() => businessRegister;
   static String getSplashRoute() => splash;
   static String getWelcomeRoute() => welcome;
   static String getLoginRoute() => login;
@@ -267,6 +272,7 @@ class AppRouter {
   static String getComplaintsRoutes() => complaintsRoutes;
 
   static List<GetPage> routes = [
+    GetPage(name: businessRegister, page: () => const BusiRegisterScreen(), binding: AccountBinding()),
     GetPage(name: initial, page: () => const IntroScreen(), binding: IntroBinding()),
     GetPage(name: splash, page: () => const SplashScreen(), binding: SplashBinding()),
     GetPage(name: welcome, page: () => const WelcomeScreen(), binding: WelcomeBinding()),

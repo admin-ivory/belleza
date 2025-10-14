@@ -144,7 +144,7 @@ class _IntroScreenState extends State<IntroScreen> {
            decoration: const BoxDecoration(
              borderRadius: BorderRadius.all(Radius.circular(10)),
                 image: DecorationImage(
-                    image: AssetImage('assets/images/img_ellipse14_45x45.png'),
+                    image: AssetImage('assets/images/intro1.png'),
                     fit: BoxFit.contain))
 
         ),
@@ -177,11 +177,11 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         Container(
           height: 300,
-          /*  decoration: const BoxDecoration(
+           decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: RiveAnimation.assets('assets/sliders/1.png'),
-                    fit: BoxFit.contain))*/
-          child: const RiveAnimation.asset('assets/rive/eye_intro.riv'),
+                    image: AssetImage('assets/images/intro5.png'),
+                    fit: BoxFit.contain))
+
         ),
         Column(
           children: [
@@ -211,7 +211,12 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         Container(
             height: 300,
-          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/intro3.png'),
+                    fit: BoxFit.contain))
+
         ),
         Column(
           children: [
@@ -239,8 +244,13 @@ class _IntroScreenState extends State<IntroScreen> {
     return Column(
       children: [
         Container(
-          height: 300,
-          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+            height: 300,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/into4.png'),
+                    fit: BoxFit.contain))
+
         ),
         Column(
           children: [
@@ -268,8 +278,13 @@ class _IntroScreenState extends State<IntroScreen> {
     return Column(
       children: [
         Container(
-          height: 300,
-          child: const RiveAnimation.asset('assets/rive/intro.riv'),
+            height: 300,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/intro2.png'),
+                    fit: BoxFit.contain))
+
         ),
         Column(
           children: [
@@ -282,7 +297,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       fontSize: 17)),
             ),
             Text(
-                'Lorem Ipsum is simply dummy text of the printing \n and typesetting industry'
+                'Lorem Ipsum is simply dummy text of ndustry'
                     .tr,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
