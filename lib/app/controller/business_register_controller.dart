@@ -1,11 +1,4 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Ultimate Salon Full App Flutter V3
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2024-present initappz.
-*/
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,51 +23,54 @@ import 'package:user/app/env.dart';
 
 import '../backend/models/add_individual_model.dart';
 import '../backend/models/city_model.dart';
+import '../backend/models/google_places_model.dart';
 import '../backend/parse/business_register_parse.dart';
+import '../helper/uuid_generator.dart';
 
 class BusinessSignUpController extends GetxController implements GetxService {
   final BusinessRegisterParser parser;
-  int currentView = 1;
+  //int currentView = 1;
   int type = 0; // 1 = salon // 0 = individual
-
+// Ajoutez ces propriétés à votre BusinessSignUpController
+  final RxInt currentStep = 0.obs;
+  final int totalSteps = 4; // Nom, Email/Mobile, Catégorie/Zone, Mot de passe
+  final List<AddBusinessModel> allCategoriesOptions = [
+    AddBusinessModel(categories: 'Coiffure', isChecked: false, id: 1),
+    AddBusinessModel(categories: 'Maquillage', isChecked: false, id: 2),
+    AddBusinessModel(categories: 'Manucure', isChecked: false, id: 3),
+    AddBusinessModel(categories: 'Barbier', isChecked: false, id: 4),
+  ];
+  final searchbarText = TextEditingController();
+  int verificationMethod = AppConstants.defaultVerificationForSignup;
   final emailTextEditor = TextEditingController();
   final businessNameTextEditor = TextEditingController();
   final lastNameTextEditor = TextEditingController();
   final mobileTextEditor = TextEditingController();
   String countryCodeMobile = '+33';
-  //final passwordTextEditor = TextEditingController();
-  //final confirmPasswordTextEditor = TextEditingController();
   String cover = '';
   final lat = TextEditingController();
   final lng = TextEditingController();
   final name = TextEditingController();
-  final feeStart = TextEditingController();
   final zipcode = TextEditingController();
-  bool passwordVisible = true;
-  String otpCode = '';
+
   final instagramTextEditor = TextEditingController();
   final addressTextEditor = TextEditingController();
-
+  List<GooglePlacesModel> _getList = <GooglePlacesModel>[];
   List<CityModal> _cityList = <CityModal>[];
   List<CityModal> get cityList => _cityList;
   String countryCode = '+33';
 
   CityModal _selectedCity = CityModal();
   CityModal get selectedCity => _selectedCity;
-
+  bool isConfirmed = false;
   bool emailVerified = false;
-  bool phoneVerified = false;
-  int smsId = 1;
+   int smsId = 1;
   RxBool isLogin = false.obs;
   String smsName = AppConstants.defaultSMSGateway;
   bool apiCalled = false;
 
-  String selectedGender = 'Female';
-
-  List<String> genderList = ['Male', 'Female'];
-
-  List<AddProfileModel> _servedCategoriesList = <AddProfileModel>[];
-  List<AddProfileModel> get servedCategoriesList => _servedCategoriesList;
+  List<AddBusinessModel> _servedCategoriesList = <AddBusinessModel>[];
+  List<AddBusinessModel> get servedCategoriesList => _servedCategoriesList;
   BusinessSignUpController({required this.parser});
   @override
   void onInit() {
@@ -107,8 +103,42 @@ class BusinessSignUpController extends GetxController implements GetxService {
     }
     update();
   }
+  void openCategorySelector() {
+    // Prépare une liste temporaire pour le dialogue
+    List<AddBusinessModel> tempSelectedList = servedCategoriesList.toList();
 
-  void saveCategory(List<AddProfileModel> list) {
+    Get.dialog(
+      SimpleDialog(
+        title: Text('Sélectionner les catégories'.tr),
+        children: [
+          // Le contenu du dialogue de sélection
+
+
+          // Bouton de validation
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                // Enregistre la sélection finale
+              //  servedCategoriesList = tempSelectedList;
+                Get.back(); // Ferme le dialogue
+              },
+              child: Text('Valider ( ${tempSelectedList.length} )'.tr),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void onSearchChanged(String value) {
+    debugPrint(value);
+    if (value.isNotEmpty) {
+      getPlacesList(value);
+    }
+  }
+
+  void saveCategory(List<AddBusinessModel> list) {
     _servedCategoriesList = [];
     for (var element in list) {
       if (element.isChecked == true) {
@@ -134,14 +164,41 @@ class BusinessSignUpController extends GetxController implements GetxService {
     update();
   }
 
+  Future<void> getPlacesList(String value) async {
+    String googleURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+    var sessionToken = Uuid().generateV4();
+    var googleKey = Environments.googleMapsKey;
+    String request = '$googleURL?input=$value&key=$googleKey&sessiontoken=$sessionToken&types=locality';
+
+    '$googleURL?input=$value&key=$Environments.googleMapsKey&sessiontoken=$sessionToken';
+    Response response = await parser.getPlacesList(request);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
+      var body = myMap['predictions'];
+      _getList = [];
+      body.forEach((data) {
+        GooglePlacesModel datas = GooglePlacesModel.fromJson(data);
+        _getList.add(datas);
+      });
+      isConfirmed = false;
+      update();
+      debugPrint(_getList.length.toString());
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
   void onNext() {
-    currentView = currentView + 1;
+    if (currentStep.value < totalSteps - 1) {
+      currentStep.value++;
+      // Ici, vous pouvez ajouter une validation pour l'étape précédente
+    }
     update();
   }
 
   void onBack() {
-    currentView = currentView - 1;
-    update();
+    if (currentStep.value > 0) {
+      currentStep.value--;
+    }
   }
 
   void onBackRoutes() {
@@ -277,106 +334,49 @@ class BusinessSignUpController extends GetxController implements GetxService {
                       Text('We have sent verification code on'.tr, style: const TextStyle(fontSize: 12, fontFamily: 'medium')),
                       Text(text, style: const TextStyle(fontSize: 12, fontFamily: 'medium')),
                       const SizedBox(height: 10),
-                      OtpTextField(
-                        numberOfFields: 6,
-                        borderColor: ThemeProvider.orangeColor,
-                        keyboardType: TextInputType.number,
-                        focusedBorderColor: ThemeProvider.appColor,
-                        showFieldAsBox: true,
-                        onCodeChanged: (String code) {},
-                        onSubmit: (String verificationCode) {
-                          otpCode = verificationCode;
-                          onOtpSubmit(context, way);
-                        }, // end onSubmit
-                      ),
+
                     ],
                   ),
                 ),
               ),
             ),
-            actions: [
-              AbsorbPointer(
-                absorbing: isLogin.value == false ? false : true,
-                child: Container(
-                  height: 45,
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 20, bottom: 20),
-                  decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(25)), color: Colors.white),
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        if (otpCode != '' && otpCode.length >= 6) {
-                          onOtpSubmit(context, way);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(foregroundColor: ThemeProvider.whiteColor, backgroundColor: ThemeProvider.appColor, elevation: 0),
-                      child: isLogin.value == true ? const CircularProgressIndicator(color: ThemeProvider.whiteColor) : Text('Verify'.tr, style: const TextStyle(fontFamily: 'regular', fontSize: 16))),
-                ),
-              )
-            ],
+
           );
         });
   }
 
-  Future<void> onOtpSubmit(context, way) async {
-    isLogin.value = !isLogin.value;
-    update();
-    var param = {'id': smsId, 'otp': otpCode, 'email': emailTextEditor.text};
-    Response response = await parser.verifyOTP(param);
-    debugPrint(response.bodyString.toString());
-    if (response.statusCode == 200) {
-      isLogin.value = !isLogin.value;
-      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-      if (myMap['data'] != '' && myMap['success'] == true) {
-        Navigator.of(context).pop(true);
-        if (way == 'email') {
-          emailVerified = true;
-        } else {
-          phoneVerified = true;
-        }
-        successToast('Your Email is Verified'.tr);
-        update();
-      } else {
-        showToast('Something went wrong while signup'.tr);
-      }
-      update();
-    } else if (response.statusCode == 401) {
-      isLogin.value = !isLogin.value;
-      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-      if (myMap['error'] != '') {
-        showToast(myMap['error'.tr]);
-      } else {
-        showToast('Something went wrong'.tr);
-      }
-      update();
-    } else if (response.statusCode == 500) {
-      isLogin.value = !isLogin.value;
-      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-      if (myMap['error'] != '') {
-        showToast(myMap['error']);
-      } else {
-        showToast('Something went wrong'.tr);
-      }
-      update();
-    } else {
-      isLogin.value = !isLogin.value;
-      ApiChecker.checkApi(response);
-      update();
-    }
+
+
+  void onCategoriesList() {
+    debugPrint('open category');
+    Get.delete<RegisterCategoriesController>(force: true);
+   // Get.toNamed(AppRouter.getRegisterCategoriesRoutes(), arguments: [_servedCategoriesList]);
   }
 
-  void saveCountryCode(String code) {
-    countryCodeMobile = '+$code';
+  void onCityChanged(CityModal city) {
+    _selectedCity = city;
     update();
   }
 
-  Future<void> verifyPhone() async {
-    debugPrint('verifyPhone');
-    debugPrint(smsName);
-    if (mobileTextEditor.text == '' || mobileTextEditor.text.isEmpty) {
-      showToast('Phone number is required'.tr);
-      return;
-    }
-    if (smsName == '2') {
+  Future<void> onRegister() async {
+// La fonction principale de vérification (email ou téléphone)
+    if (verificationMethod == 0) {
+      debugPrint('Début de l\'envoi de l\'email de test.');
+
+      // Préparation du body minimal requis par l'API pour un test d'envoi.
+      // Nous passons uniquement l'email et les champs requis par votre backend.
+      var param = {
+        'email': emailTextEditor.text,
+        'subject': 'Inscription Pro - Test', // Sujet clair
+        'header_text': 'Ceci est un email de test de confirmation.',
+        'thank_you_text': "Merci d'avoir soumis votre demande.",
+        'mediaURL': '${Environments.apiBaseURL}api/storage/images/',
+        'country_code': countryCodeMobile,
+        'mobile': mobileTextEditor.text,
+        // Suppression des champs inutiles ou spécifiques à l'OTP
+      };
+
+      // Dialogue de chargement
       Get.dialog(
         SimpleDialog(
           children: [
@@ -392,116 +392,29 @@ class BusinessSignUpController extends GetxController implements GetxService {
         ),
         barrierDismissible: false,
       );
-      var param = {'country_code': countryCodeMobile, 'mobile': mobileTextEditor.text};
-      Response response = await parser.checkPhoneExist(param);
-      Get.back();
+
+      // 1. Appel API pour envoyer l'email
+      Response response = await parser.sendVerificationMail(param);
+      Get.back(); // Ferme le dialogue
+
       if (response.statusCode == 200) {
-        Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-        if (myMap['data'] != '' && myMap['data'] == true) {
-          FocusManager.instance.primaryFocus?.unfocus();
-          Get.toNamed(AppRouter.getFirebaseAuthRoutes(), arguments: [countryCodeMobile, mobileTextEditor.text, 'register']);
-        } else {
-          showToast('Something went wrong while signup'.tr);
-        }
-        update();
-      } else if (response.statusCode == 401) {
-        Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-        if (myMap['message'] != '') {
-          showToast(myMap['message'.tr]);
-        } else {
-          showToast('Something went wrong'.tr);
-        }
-        update();
+        // Succès: Affiche une confirmation simple
+        showToast('Email de test envoyé avec succès à ${emailTextEditor.text}'.tr);
+
+        // Si l'email est juste un test, la vérification n'est pas nécessaire.
+        // Si vous aviez besoin d'une vérification, vous devriez appeler ici
+        // la fonction qui ouvre le modal d'OTP.
+
       } else if (response.statusCode == 500) {
+        // Gestion des erreurs internes du serveur (500)
         Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-        if (myMap['message'] != '') {
-          showToast(myMap['message'.tr]);
-        } else {
-          showToast('Something went wrong'.tr);
-        }
-        update();
+        String errorMessage = myMap['message'] ?? 'Erreur interne du serveur (Code 500).';
+        showToast(errorMessage.tr);
       } else {
+        // Gestion des autres erreurs (400, 401, 404, etc.)
         ApiChecker.checkApi(response);
-        update();
       }
       update();
-    } else {
-      debugPrint('sms');
-      var param = {'country_code': countryCodeMobile, 'mobile': mobileTextEditor.text};
-      Response response = await parser.verifyPhone(param);
-      if (response.statusCode == 200) {
-        Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-        if (myMap['data'] != '' && myMap['data'] == true) {
-          smsId = myMap['otp_id'];
-          FocusManager.instance.primaryFocus?.unfocus();
-          sendSMS();
-        } else {
-          showToast('Something went wrong while signup'.tr);
-        }
-        update();
-      } else if (response.statusCode == 401) {
-        Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-        if (myMap['message'] != '') {
-          showToast(myMap['message'.tr]);
-        } else {
-          showToast('Something went wrong'.tr);
-        }
-        update();
-      } else if (response.statusCode == 500) {
-        Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-        if (myMap['message'] != '') {
-          showToast(myMap['message'.tr]);
-        } else {
-          showToast('Something went wrong'.tr);
-        }
-        update();
-      } else {
-        ApiChecker.checkApi(response);
-        update();
-      }
-      update();
-    }
-  }
-
-  void sendSMS() {
-    var context = Get.context as BuildContext;
-    openOTPModal(context, countryCodeMobile.toString() + mobileTextEditor.text.toString(), 'mobile');
-  }
-
-  void togglePasswordBtn() {
-    passwordVisible = !passwordVisible;
-    update();
-  }
-
-  void saveGender(String gender) {
-    selectedGender = gender;
-    update();
-  }
-
-  void onCategoriesList() {
-    debugPrint('open category');
-    Get.delete<RegisterCategoriesController>(force: true);
-   // Get.toNamed(AppRouter.getRegisterCategoriesRoutes(), arguments: [_servedCategoriesList]);
-  }
-
-  void onCityChanged(CityModal city) {
-    _selectedCity = city;
-    update();
-  }
-
-  void verifyPhoneFromFirebase() {
-    phoneVerified = true;
-    update();
-  }
-
-  Future<void> onRegister() async {
-    if (emailVerified == false) {
-      showToast('Please verify email'.tr);
-      return;
-    }
-    if (phoneVerified == false) {
-      showToast('Please verify phone number'.tr);
-      return;
     }
     if (emailTextEditor.text == '' ||
         emailTextEditor.text.isEmpty ||
@@ -511,8 +424,6 @@ class BusinessSignUpController extends GetxController implements GetxService {
         lastNameTextEditor.text.isEmpty ||
         mobileTextEditor.text == '' ||
         mobileTextEditor.text.isEmpty ||
-        feeStart.text == '' ||
-        feeStart.text.isEmpty ||
         addressTextEditor.text == '' ||
         addressTextEditor.text.isEmpty ||
         instagramTextEditor.text == '' ||
@@ -569,15 +480,10 @@ class BusinessSignUpController extends GetxController implements GetxService {
       "categories": savedList.join(','),
       "lat": lat.text,
       "lng": lng.text,
-      "fee_start": feeStart.text,
-      "about": instagramTextEditor.text,
       "cid": selectedCity.id.toString(),
       "zipcode": zipcode.text,
       "address": addressTextEditor.text,
-      "extra_field": 'NA',
       "status": 0,
-      "cover": cover,
-      "gender": selectedGender == 'Male' ? 1 : 0,
       "type": type == 1 ? 'salon' : 'individual',
       "name": name.text
     };

@@ -18,6 +18,7 @@ import '../helper/custom_appbar.dart';
 import '../util/app_bar/appbar_subtitle_4.dart';
 import '../util/app_style.dart';
 import '../util/constant.dart';
+import '../util/widget/custom_form.dart';
 import '../util/widget/custom_image_view.dart';
 
 class BusiRegisterScreen extends StatefulWidget {
@@ -28,6 +29,7 @@ class BusiRegisterScreen extends StatefulWidget {
 }
 
 class _BusiRegisterScreenState extends State<BusiRegisterScreen> {
+
   bool passwordVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -39,11 +41,6 @@ class _BusiRegisterScreenState extends State<BusiRegisterScreen> {
           CustomAppBar(
               height: getVerticalSize(75),
               leadingWidth: getVerticalSize(61),
-              leading: CustomImageView(
-                  imagePath: ImageConstant.logoBelleza,
-                  height: getSize(45),
-                  width: getSize(45),
-                  margin: getMargin(left: 16, top: 30)),
               title: Padding(
                   padding: getPadding(left: 11, top: 30),
                   child: Column(
@@ -51,19 +48,31 @@ class _BusiRegisterScreenState extends State<BusiRegisterScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppbarSubtitle4(text: "Thank You".tr),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Afro Queen",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtSFProTextBold22))
+
                       ])),
               ),
-          body: SingleChildScrollView(
+          body:  FormBusiness(),
+
+         /* SingleChildScrollView(
+
             reverse: true,
             child: Center(
               child: Column(
                 children: [
+                  Positioned(
+                    right: -getSmallDiameter(context) / 3,
+                    top: -getSmallDiameter(context) / 3,
+                    child: Container(
+                      width: getSmallDiameter(context),
+                      height: getSmallDiameter(context),
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                              colors: [Color(0xFFB226B2), Color(0xFFFF6DA7)],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter)),
+                    ),
+                  ),
                   // Nom du Business (REQUIS)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -279,7 +288,7 @@ class _BusiRegisterScreenState extends State<BusiRegisterScreen> {
                 ],
               ),
             ),
-          ),
+          ),*/
         );
       },
     );

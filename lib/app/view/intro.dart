@@ -109,27 +109,35 @@ class _IntroScreenState extends State<IntroScreen> {
           items: items.map((i) {
             return Builder(
               builder: (BuildContext context) {
-                return Container(
-                  width: double.infinity,
-                  height: double.infinity,
+                return
+                  Container(
+                    child: SingleChildScrollView(
 
-                  margin: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Column(
-                    children: [
-                      if (i == 0)
-                        _buildSlide1(context)
-                      else if (i == 1)
-                        _buildSlide2(context)
-                      else if (i == 2)
-                        _buildSlide3(context)
-                      else if (i == 3)
-                        _buildSlide4(context)
-                      else if (i == 4)
-                        _buildSlide5(context),
-                      _buildDots()
-                    ],
-                  ),
-                );
+                      child: Column(
+                        // Mettez ici tout le contenu qui déborde
+                        children: [
+                          Column(
+                            children: [
+                              if (i == 0)
+                                _buildSlide1(context)
+                              else if (i == 1)
+                                _buildSlide2(context)
+                              else if (i == 2)
+                                  _buildSlide3(context)
+                                else if (i == 3)
+                                    _buildSlide4(context)
+                                  else if (i == 4)
+                                      _buildSlide5(context),
+                              _buildDots()
+                            ],
+                          ),
+                          // ... vos widgets
+                          // ...
+                        ],
+                      ),
+                    )
+
+                  );
               },
             );
           }).toList(),

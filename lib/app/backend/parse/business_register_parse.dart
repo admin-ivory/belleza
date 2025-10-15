@@ -11,6 +11,9 @@ import 'package:user/app/helper/shared_pref.dart';
 import 'package:get/get.dart';
 import 'package:user/app/util/constant.dart';import 'package:image_picker/image_picker.dart';
 
+import '../../env.dart';
+import '../../helper/uuid_generator.dart';
+
 class BusinessRegisterParser {
   final SharedPreferencesManager sharedPreferencesManager;
   final ApiService apiService;
@@ -21,7 +24,10 @@ class BusinessRegisterParser {
     var response = await apiService.postPublic(AppConstants.createUser, body);
     return response;
   }
-
+  Future<Response> getPlacesList(url) async {
+    var response = await apiService.getOther(url);
+    return response;
+  }
   void saveToken(String token) {
     sharedPreferencesManager.putString('token', token);
   }
@@ -35,17 +41,11 @@ class BusinessRegisterParser {
     sharedPreferencesManager.putString('phone', mobile);
   }
 
-  String getCurrencyCode() {
-    return sharedPreferencesManager.getString('currencyCode') ?? AppConstants.defaultCurrencyCode;
-  }
 
-  String getCurrencySide() {
-    return sharedPreferencesManager.getString('currencySide') ?? AppConstants.defaultCurrencySide;
-  }
 
-  String getCurrencySymbol() {
-    return sharedPreferencesManager.getString('currencySymbol') ?? AppConstants.defaultCurrencySymbol;
-  }
+
+
+
 
   int getVerificationMethod() {
     return sharedPreferencesManager.getInt('user_verify_with') ?? AppConstants.defaultVerificationForSignup;
@@ -61,19 +61,7 @@ class BusinessRegisterParser {
   }
 
   Future<Response> sendVerificationMail(dynamic param) async {
-    return await apiService.postPublic(AppConstants.sendVerificationMail, param);
-  }
-
-  Future<Response> verifyOTP(dynamic param) async {
-    return await apiService.postPublic(AppConstants.verifyOTP, param);
-  }
-
-  Future<Response> verifyMobileForeFirebase(dynamic param) async {
-    return await apiService.postPublic(AppConstants.verifyMobileForeFirebase, param);
-  }
-
-  Future<Response> sendRegisterOTP(dynamic param) async {
-    return await apiService.postPublic(AppConstants.sendVerificationSMS, param);
+    return await apiService.postPublic(AppConstants.sendMailToAdmin, param);
   }
 
   String getFcmToken() {
@@ -89,11 +77,6 @@ class BusinessRegisterParser {
     return response;
   }
 
-  Future<Response> verifyPhone(dynamic body) async {
-    var response = await apiService.postPublic(AppConstants.verifyPhoneRegister, body);
-    return response;
-  }
-
 
   Future<Response> getHomeCities() async {
     var response = await apiService.getPublic(AppConstants.getHomeCities);
@@ -106,6 +89,10 @@ class BusinessRegisterParser {
   }
 
   Future<Response> saveMyRequest(dynamic body) async {
+    var response = await apiService.postPublic(AppConstants.saveMyRequest, body);
+    return response;
+  }
+  Future<Response> sendMyRequest(dynamic body) async {
     var response = await apiService.postPublic(AppConstants.saveMyRequest, body);
     return response;
   }

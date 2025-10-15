@@ -18,8 +18,8 @@ class RegisterCategoriesController extends GetxController implements GetxService
 
   String selectedServedCate = '';
   String selectedServedCateName = '';
-  List<AddProfileModel> _servedCategoriesList = <AddProfileModel>[];
-  List<AddProfileModel> get servedCategoriesList => _servedCategoriesList;
+  List<AddBusinessModel> _servedCategoriesList = <AddBusinessModel>[];
+  List<AddBusinessModel> get servedCategoriesList => _servedCategoriesList;
 
   List<int> servedCategories = [];
 
@@ -31,7 +31,7 @@ class RegisterCategoriesController extends GetxController implements GetxService
     super.onInit();
     if (Get.arguments[0] != null) {
       debugPrint(Get.arguments[0].toString());
-      List<AddProfileModel> savedData = <AddProfileModel>[];
+      List<AddBusinessModel> savedData = <AddBusinessModel>[];
       savedData = Get.arguments[0];
       for (var element in savedData) {
         if (element.isChecked == true) {
@@ -54,7 +54,7 @@ class RegisterCategoriesController extends GetxController implements GetxService
       var body = myMap['data'];
       _servedCategoriesList = [];
       body.forEach((element) {
-        AddProfileModel datas = AddProfileModel.fromJson(element);
+        AddBusinessModel datas = AddBusinessModel.fromJson(element);
         var index = servedCategories.indexOf(datas.id as int);
         debugPrint(index.toString());
         if (index >= 0) {
