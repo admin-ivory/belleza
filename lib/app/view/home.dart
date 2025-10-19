@@ -86,10 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          AppbarSubtitle4(text: "lbl_welcome".tr),
+                          AppbarSubtitle4(text: "Welcome".tr),
                           Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("${value.firstName}",
+                              child:
+                              Text("${value.firstName}",
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtSFProTextBold22))
@@ -97,21 +98,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: [
                   CustomIconButton(
                       onTap: () {
-                        Get.dialog(
-                          AlertDialog(
-                            backgroundColor: Colors.transparent,
-                            contentPadding: EdgeInsets.zero,
-                            insetPadding: EdgeInsets.only(left: 0),
-                            content: Container(),
-                          ),
-                        );
+                        Get.toNamed(AppRouter.getFindLocationRoutes());
                       },
                       height: 40,
                       width: 40,
                       margin: getMargin(left: 16, top: 30, right: 16),
                       variant: IconButtonVariant.FillPink50,
                       child: CustomImageView(
-                          svgPath: ImageConstant.imgArrowright))
+                          svgPath: ImageConstant.location))
                 ])
                 :
             CustomAppBar(
@@ -915,9 +909,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const SizedBox(height: 20),
-                                      const SizedBox(height: 80, width: 80, child: rive.RiveAnimation.asset("assets/rive/empty.riv", fit: BoxFit.cover)),
+                                      const SizedBox(height: 210, width: 210, child: rive.RiveAnimation.asset("assets/rive/empty.riv", fit: BoxFit.cover)),
                                       const SizedBox(height: 30),
                                       Center(child: Text('No Data Found Near You!'.tr, style: const TextStyle(fontFamily: 'bold'))),
+                                      const SizedBox(height: 30),
+                                      ElevatedButton(onPressed: () {  }, child: Text('Change Location'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontFamily: 'bold')))
                                     ],
                                   ),
                           ),

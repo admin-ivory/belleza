@@ -50,7 +50,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                           Container(
                             height: 250,
                             decoration: BoxDecoration(
-                              image: DecorationImage(image: NetworkImage('${Environments.apiBaseURL}api/storage/images/${value.salonDetails.cover.toString()}'), fit: BoxFit.cover),
+                              image: DecorationImage(image: NetworkImage('${Environments.apiBaseURL}/storage/images/${value.salonDetails.cover.toString()}'), fit: BoxFit.cover),
                             ),
                             child: Stack(
                               children: [

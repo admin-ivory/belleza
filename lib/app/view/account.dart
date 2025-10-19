@@ -245,7 +245,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     top: 16,
                   ),
                   child: Text(
-                    "Afro Queen".tr,
+                    '${value.firstName} ${value.lastName}',
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtSFProTextBold28,

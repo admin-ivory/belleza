@@ -6,6 +6,7 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2024-present initappz.
 */
+import 'package:http/http.dart' as http;
 import 'package:user/app/backend/api/api.dart';
 import 'package:user/app/helper/shared_pref.dart';
 import 'package:get/get.dart';
@@ -40,13 +41,6 @@ class BusinessRegisterParser {
     sharedPreferencesManager.putString('cover', cover);
     sharedPreferencesManager.putString('phone', mobile);
   }
-
-
-
-
-
-
-
   int getVerificationMethod() {
     return sharedPreferencesManager.getInt('user_verify_with') ?? AppConstants.defaultVerificationForSignup;
   }
@@ -60,9 +54,6 @@ class BusinessRegisterParser {
     return response;
   }
 
-  Future<Response> sendVerificationMail(dynamic param) async {
-    return await apiService.postPublic(AppConstants.sendMailToAdmin, param);
-  }
 
   String getFcmToken() {
     return sharedPreferencesManager.getString('fcm_token') ?? 'NA';
@@ -76,7 +67,6 @@ class BusinessRegisterParser {
     var response = await apiService.postPublic(AppConstants.verifyEmail, body);
     return response;
   }
-
 
   Future<Response> getHomeCities() async {
     var response = await apiService.getPublic(AppConstants.getHomeCities);
@@ -96,8 +86,14 @@ class BusinessRegisterParser {
     var response = await apiService.postPublic(AppConstants.saveMyRequest, body);
     return response;
   }
+  Future<Response> sendTestToFirebase(dynamic body) async {
+    var response = await apiService.postPublic(AppConstants.sendmailbyfirebase, body);
+  return response;
+  }
 
 }
+// La méthode doit être dans votre RegisterParser ou une classe similaire
+
 class RegisterCategoriesParser {
   final SharedPreferencesManager sharedPreferencesManager;
   final ApiService apiService;

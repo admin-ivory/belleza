@@ -37,7 +37,9 @@ class HomeParser {
   String getCurrencyCode() {
     return sharedPreferencesManager.getString('currencyCode') ?? AppConstants.defaultCurrencyCode;
   }
-
+  String getFirstName() {
+    return sharedPreferencesManager.getString('first_name') ?? '';
+  }
   String getCurrencySide() {
     return sharedPreferencesManager.getString('currencySide') ?? AppConstants.defaultCurrencySide;
   }

@@ -85,6 +85,7 @@ class HomeController extends GetxController implements GetxService {
     currencySide = parser.getCurrencySide();
     currencySymbol = parser.getCurrencySymbol();
     title = parser.getAddressName();
+    firstName = parser.getFirstName();
     getHomeData();
   }
 

@@ -117,6 +117,27 @@ class ApiService extends GetxService {
     }
     return response;
   }
+
+
+  Future<Response> sendtoFirebase(dynamic body) async {
+    // 1. Définir les en-têtes pour indiquer que le corps est en JSON
+    Map<String, String> headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+    // 2. Encoder le corps (Map) en chaîne de caractères JSON
+    String jsonBody = jsonEncode(body);
+
+    // 3. Envoyer la requête avec le corps JSON et les en-têtes
+    final response = await http.post(
+      // CORRECTION : Utilisation de Uri.parse()
+      Uri.parse('https://registerprouser-g26cai53pq-uc.a.run.app'),
+      headers: headers,
+      body: jsonBody,
+    );
+
+    return parseResponse(response, 'firebase');
+  }
 }
 
 class MultipartBody {

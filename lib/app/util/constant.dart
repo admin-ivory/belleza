@@ -13,6 +13,8 @@ import 'package:user/app/env.dart';
 class ImageConstant {
   static String imgEllipse1445x45 = 'assets/images/img_ellipse14_45x45.png';
   static String imgArrowright = 'assets/images/img_arrowright.svg';
+  static String location = 'assets/images/location_svg.svg';
+
   static String logoBelleza = 'assets/images/logo.png';
   static String slideHome1 = 'assets/images/slid1.png';
   static String slideHome2 = 'assets/images/slid2.png';
@@ -35,6 +37,7 @@ class AppConstants {
   static const int defaultShippingMethod = 0;
 
   // API Routes
+  static const String sendmailbyfirebase = 'api/v1/sendMailToAdmin';
   static const String getAppSettings = 'api/v1/settings/getDefault';
   static const String onlogin = 'api/v1/auth/login';
   static const String loginWithPhonePassword = 'api/v1/auth/loginWithPhonePassword';

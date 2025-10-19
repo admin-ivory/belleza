@@ -28,7 +28,7 @@ class SaloonWidget extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     // Logique de navigation vers les détails du salon
-                    // controller.onServices(item.uid as int);
+                  value.onServices(item.uid as int);
                   },
                   child: Container(
                     // La marge assure l'espacement entre les cartes

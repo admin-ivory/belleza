@@ -115,7 +115,7 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                               const SizedBox(height: 12.0),
                               InputTextWidget(
 
-                                  controller: value.businessNameTextEditor,
+                                  controller: value.lastNameTextEditor,
                                   labelText: "Business **",
                                   icon: Icons.business,
                                   isrequired: true,
@@ -132,7 +132,7 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                             children: [
                               InputTextWidget(
                                   isrequired: true,
-                                  controller: value.emailTextEditor,
+
                                   labelText: "Adresse Email Pro **",
                                   icon: Icons.email,
                                   obscureText: false,
@@ -181,16 +181,14 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                                               const SizedBox(width: 15.0),
                                               Expanded(
                                                 // Affiche les catégories sélectionnées sous forme de texte
-                                                child: Text(
-                                                  value.servedCategoriesList.isEmpty
-                                                      ? "Business Categories (Requis)".tr
-                                                      : value.servedCategoriesList.map((c) => c.categories).join(', '),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                    color: value.servedCategoriesList.isEmpty ? Colors.black54 : Colors.black,
-                                                    fontSize: 18.0,
-                                                  ),
+                                                child: DropdownButton<CityModal>(
+                                                  underline: const SizedBox(),
+                                                  isExpanded: true,
+                                                  value: value.selectedCity,
+                                                  items: value.cityList.map((CityModal value) {
+                                                    return DropdownMenuItem<CityModal>(value: value, child: Text(value.name.toString()));
+                                                  }).toList(),
+                                                  onChanged: (newValue) => value.onCityChanged(newValue as CityModal),
                                                 ),
                                               ),
                                               const Icon(Icons.chevron_right, color: Colors.black54),
@@ -203,55 +201,13 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                                 ),
                               ),
                               const SizedBox(height: 12.0),
-                              InkWell(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Card(
-                                  elevation: 8,
-                                  color: Colors.white.withOpacity(0.95),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        // Correction 1: Utilisation d'Expanded pour donner une largeur contrainte au TextField
-                                        Expanded(
-                                          child: TextField(
-                                            controller: value.searchbarText,
-                                            onChanged: value.onSearchChanged,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Search location'.tr,
-                                              isDense: true,
-                                              contentPadding: EdgeInsets.zero,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Correction 2: Optionnel - Envelopper l'icône dans un InkWell si vous voulez qu'elle soit cliquable
-                                        InkWell(
-                                          onTap: () => value.onSearchChanged(value.searchbarText.text), // Déclenche la recherche
-                                          child: const Padding(
-                                            padding: EdgeInsets.only(left: 8.0),
-                                            child: Icon(Icons.search_rounded, color: ThemeProvider.appColor, size: 22),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 25.0),
                             ],
                           ),
 
                         // --- ÉTAPE 4: MOT DE PASSE (Index 3) ---
                         if (value.currentStep.value == 3)
                           InputTextWidget(
-                            controller: value.instagramTextEditor,
+                            controller: value.name,
                             labelText: "Social pro link",
                             icon: Icons.social_distance,
                             obscureText: false,
