@@ -78,30 +78,17 @@ class BusinessRegisterParser {
     return response;
   }
 
-  Future<Response> saveMyRequest(dynamic body) async {
-    var response = await apiService.postPublic(AppConstants.saveMyRequest, body);
-    return response;
-  }
-  Future<Response> sendMyRequest(dynamic body) async {
-    var response = await apiService.postPublic(AppConstants.saveMyRequest, body);
-    return response;
-  }
+
   Future<Response> sendTestToFirebase(dynamic body) async {
     var response = await apiService.postPublic(AppConstants.sendmailbyfirebase, body);
   return response;
   }
 
-}
-// La méthode doit être dans votre RegisterParser ou une classe similaire
-
-class RegisterCategoriesParser {
-  final SharedPreferencesManager sharedPreferencesManager;
-  final ApiService apiService;
-
-  RegisterCategoriesParser({required this.apiService, required this.sharedPreferencesManager});
-
   Future<Response> getAllServedCategory() async {
     var response = await apiService.getPublic(AppConstants.getActiveCategories);
     return response;
   }
+
 }
+// La méthode doit être dans votre RegisterParser ou une classe similaire
+

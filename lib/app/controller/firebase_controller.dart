@@ -12,6 +12,7 @@ import 'package:user/app/backend/parse/firebase_parse.dart';
 import 'package:user/app/controller/login_controller.dart';
 import 'package:user/app/controller/register_controller.dart';
 
+
 class FirebaseController extends GetxController implements GetxService {
   final FirebaseParser parser;
   String countryCode = '';

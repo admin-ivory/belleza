@@ -6,6 +6,7 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2024-present initappz.
 */
+import 'package:flutter/material.dart';
 import 'package:user/app/backend/models/language_model.dart';
 import 'package:user/app/env.dart';
 
@@ -14,7 +15,9 @@ class ImageConstant {
   static String imgEllipse1445x45 = 'assets/images/img_ellipse14_45x45.png';
   static String imgArrowright = 'assets/images/img_arrowright.svg';
   static String location = 'assets/images/location_svg.svg';
-
+  static String mail = 'assets/images/location_svg.svg';
+  static String girl = 'assets/images/girl.svg';
+  static String instagram = 'assets/images/instagram.svg';
   static String logoBelleza = 'assets/images/logo.png';
   static String slideHome1 = 'assets/images/slid1.png';
   static String slideHome2 = 'assets/images/slid2.png';

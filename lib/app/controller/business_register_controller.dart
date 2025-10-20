@@ -6,6 +6,7 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2024-present initappz.
 */
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
@@ -23,18 +24,18 @@ import '../util/theme.dart';
 import '../util/toast.dart';
 
 
+
+
 class BusinessSignUpController extends GetxController implements GetxService {
   final BusinessRegisterParser parser;
   final int totalSteps = 4;
   int currentView = 1;
   int type = 1; // 1 = salon // 0 = individual
   final RxInt currentStep = 0.obs;
-  final emailTextEditor = TextEditingController();
-  final firstNameTextEditor = TextEditingController();
+  final emailText = TextEditingController();
+  final businessNameTextEditor = TextEditingController();
   final lastNameTextEditor = TextEditingController();
-  final mobileTextEditor = TextEditingController();
-  String countryCodeMobile = '+33';
-  String cover = ImageConstant.logoBelleza;
+  final whatsappTextEditor = TextEditingController();
   final lat = 48.857548;
   final lng = 2.351377;
   final name = TextEditingController();
@@ -42,7 +43,14 @@ class BusinessSignUpController extends GetxController implements GetxService {
   String otpCode = '';
   final descriptionsTextEditor = 'New Afro Queen Services';
   final addressTextEditor = TextEditingController();
+// 2. AJOUTEZ CECI : Variable pour la sélection ACTUELLE
+  var selectedCategory = Rxn<Categories>(); // 'Rxn' pour 'Rx nullable'
 
+// 3. AJOUTEZ CECI : Fonction pour mettre à jour la sélection
+  void onCategoryChanged(Categories? newValue) {
+    selectedCategory.value = newValue;
+  }
+  var servedCategoriesList = <AddBusinessModel>[].obs;
   List<CityModal> _cityList = <CityModal>[];
   List<CityModal> get cityList => _cityList;
 
@@ -56,12 +64,8 @@ class BusinessSignUpController extends GetxController implements GetxService {
   String smsName = AppConstants.defaultSMSGateway;
   bool apiCalled = false;
 
-  String selectedGender = 'Female';
 
-  String genderList = 'Female';
 
-  List<AddBusinessModel> _servedCategoriesList = <AddBusinessModel>[];
-  List<AddBusinessModel> get servedCategoriesList => _servedCategoriesList;
   BusinessSignUpController({required this.parser});
   @override
   void onInit() {
@@ -93,10 +97,10 @@ class BusinessSignUpController extends GetxController implements GetxService {
   }
 
   void saveCategory(List<AddBusinessModel> list) {
-    _servedCategoriesList = [];
+    servedCategoriesList ;
     for (var element in list) {
       if (element.isChecked == true) {
-        _servedCategoriesList.add(element);
+        servedCategoriesList.add(element);
       }
     }
     update();
@@ -113,6 +117,120 @@ class BusinessSignUpController extends GetxController implements GetxService {
     }
     update();
   }
+  // Fonction à appeler depuis votre formulaire
+// Passez-lui les données récupérées de vos TextFormField, par exemple
+  Future<void> envoyerEmailDeConfirmation({
+    required String emailUtilisateur,
+    required String nomUtilisateur,
+    required String whatsapp,
+    required String instagram,
+    required String businessName,
+
+  }) async {
+    // 1. Afficher un dialogue de chargement
+    Get.dialog(
+      const Center(
+        child: CircularProgressIndicator(), // Un simple spinner
+      ),
+      barrierDismissible: false, // L'utilisateur ne peut pas fermer le dialogue en cliquant à côté
+    );
+
+    try {
+      // Référence à votre collection 'mail'
+      final mailCollection = FirebaseFirestore.instance.collection('mail');
+
+      // Écriture du document qui va déclencher l'extension
+      await mailCollection.add({
+        'to': [emailUtilisateur], // L'e-mail vient du formulaire
+        'template': {
+          'name': 'mailTemplate', // L'ID de votre document 'templates'
+          'data': {
+            'nom': nomUtilisateur, // La variable {{ nom }}
+            'email': emailUtilisateur,
+            'whatsapp': whatsapp,
+            'instagram': instagram,
+            'businessName': businessName,
+          },
+        },
+      });
+      await mailCollection.add({
+        'to': ['souscription@belleza.afroo-app.com'], // <<< VOTRE EMAIL
+        'template': {
+          'name': 'admin_notification', // <<< Le nouveau template
+          'data': {
+            'nom': nomUtilisateur,
+            'email_expediteur': emailUtilisateur, // <<< La nouvelle variable
+          },
+        },
+      });
+
+      // 2. Fermer le dialogue de chargement
+      Get.back();
+
+      // 3. Afficher le dialogue de succès
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Succès'),
+          content: const Text('Votre message a été envoyé avec succès.'),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(), // Ferme le dialogue de succès
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+      print('Document d\'e-mail ajouté à la file d\'attente !');
+    } catch (e) {
+      // 2. Fermer le dialogue de chargement (même en cas d'erreur)
+      Get.back();
+
+      // 3. Afficher le dialogue d'erreur
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Erreur'),
+          content: Text(
+              'Une erreur est survenue lors de l\'envoi de votre message. Erreur : $e'),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(), // Ferme le dialogue d'erreur
+              child: const Text('Fermer'),
+            ),
+          ],
+        ),
+      );
+
+      print('Erreur lors de l\'ajout du document : $e');
+    }
+  }
+  Future<void> getAllServedCategory() async {
+    await Future.delayed(Duration(seconds: 1));
+    debugPrint('getAllServedCategory');
+    var response = await parser.getAllServedCategory();
+    apiCalled = true;
+    if (response.statusCode == 200) {
+      // success
+      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
+      var body = myMap['data'];
+      servedCategoriesList ;
+      body.forEach((element) {
+        AddBusinessModel datas = AddBusinessModel.fromJson(element);
+        var index = servedCategoriesList.indexWhere((item) => item.id == datas.id);
+        debugPrint(index.toString());
+        if (index >= 0) {
+          datas.isChecked = true;
+        } else {
+          datas.isChecked = false;
+        }
+        servedCategoriesList.add(datas);
+      });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    update();
+  }
+
 
   void onNext() {
     if (currentStep.value < totalSteps - 1) {
@@ -132,46 +250,9 @@ class BusinessSignUpController extends GetxController implements GetxService {
     Navigator.of(context).pop(true);
   }
 
-  void selectFromGallery(String kind) async {
-    debugPrint(kind);
-    final pickedFile = await ImagePicker().pickImage(source: kind == 'gallery' ? ImageSource.gallery : ImageSource.camera, imageQuality: 25);
-    debugPrint(pickedFile.toString());
-    if (pickedFile != null) {
-      Get.dialog(
-        SimpleDialog(
-          children: [
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                const CircularProgressIndicator(color: ThemeProvider.appColor),
-                const SizedBox(width: 30),
-                SizedBox(child: Text("Please wait".tr, style: const TextStyle(fontFamily: 'bold'))),
-              ],
-            )
-          ],
-        ),
-        barrierDismissible: false,
-      );
-      Response response = await parser.uploadImage(pickedFile);
-      Get.back();
-      if (response.statusCode == 200) {
-        if (response.body['data'] != null && response.body['data'] != '') {
-          dynamic body = response.body["data"];
-          if (body['image_name'] != null && body['image_name'] != '') {
-            cover = body['image_name'];
-            debugPrint(cover);
-            update();
-          }
-        }
-      } else {
-        ApiChecker.checkApi(response);
-      }
-    }
-  }
-
   Future<void> verifyEmail() async {
     debugPrint('verify email');
-    if (!GetUtils.isEmail(emailTextEditor.text)) {
+    if (!GetUtils.isEmail(emailText.text)) {
       showToast("Email is not valid".tr);
       return;
     }
@@ -192,7 +273,7 @@ class BusinessSignUpController extends GetxController implements GetxService {
       barrierDismissible: false,
     );
     var body = {
-      "email": emailTextEditor.text,
+      "email": emailText.text,
     };
     var response = await parser.verifyEmail(body);
     Get.back();
@@ -234,20 +315,11 @@ class BusinessSignUpController extends GetxController implements GetxService {
       throw 'Could not launch $url'.tr;
     }
   }
-  void saveCountryCode(String code) {
-    countryCodeMobile = '+33';
-    update();
-  }
-
-  void saveGender(String gender) {
-    selectedGender = gender;
-    update();
-  }
 
   void onCategoriesList() {
     debugPrint('open category');
     Get.delete<RegisterCategoriesController>(force: true);
-    Get.toNamed(AppRouter.allCategoriesRoutes, arguments: [_servedCategoriesList]);
+    Get.toNamed(AppRouter.allCategoriesRoutes, arguments: [servedCategoriesList]);
   }
 
   void onCityChanged(CityModal city) {
@@ -260,88 +332,4 @@ class BusinessSignUpController extends GetxController implements GetxService {
     update();
   }
 
-  Future<void> onRegister() async {
-
-    if (cover == '' || cover.isEmpty) {
-      cover = ImageConstant.logoBelleza;
-      return;
-    }
-    Get.dialog(
-      SimpleDialog(
-        children: [
-          Row(
-            children: [
-              const SizedBox(width: 30),
-              const CircularProgressIndicator(color: ThemeProvider.appColor),
-              const SizedBox(width: 30),
-              SizedBox(child: Text("Please wait".tr, style: const TextStyle(fontFamily: 'bold'))),
-            ],
-          )
-        ],
-      ),
-      barrierDismissible: false,
-    );
-    List<String> savedList = [];
-    for (var element in servedCategoriesList) {
-      if (element.isChecked == true) {
-        savedList.add(element.id.toString());
-      }      else {
-        savedList = ['2'];
-      }
-      debugPrint(element.id.toString());
-
-    }
-    debugPrint(savedList.join(','));
-    var body = {
-      "email": 'ivoiryproject@gmail.com',
-      "from_username": name.text,
-      "last_name": 'lastNameTextEditor.text',
-      "mobile": mobileTextEditor.text,
-      "categories": "2",
-      "subject": descriptionsTextEditor,
-      "cover": cover,
-      'mediaURL':cover,
-      'thank_you_text' :'thank you for contacting us',
-      'header_text' :'heaaaaaaaaggggg ',
-      'from_mail' :'testttteur grome mail',
-      'from_message' : 'hhhhhhhhhhhhhhhhhh',
-      'to_respond' : 'requuuuuuuuuuuuuuuuuuuuired',
-      'id' :'15'
-    };
-    var response = await parser.sendTestToFirebase(body);
-    Get.back();
-    debugPrint(response.bodyString);
-    if (response.statusCode == 200) {
-      Get.generalDialog(
-        pageBuilder: (context, __, ___) => AlertDialog(
-          title: Text('Success!'.tr),
-          content: Text('Your Request is submitted'.tr),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                onBackRoutes();
-              },
-              child: Text('Okay'.tr, style: const TextStyle(color: ThemeProvider.appColor, fontFamily: 'bold')),
-            )
-          ],
-        ),
-      );
-    } else if (response.statusCode == 401) {
-      showToast('Something went wrong while signup'.tr);
-      update();
-    } else if (response.statusCode == 500) {
-      Map<String, dynamic> myMap = Map<String, dynamic>.from(response.body);
-      if (myMap['message'] != '') {
-        showToast(myMap['message'.tr]);
-      } else {
-        showToast('Something went wrong'.tr);
-      }
-      update();
-    } else {
-      ApiChecker.checkApi(response);
-      update();
-    }
-    update();
-  }
 }

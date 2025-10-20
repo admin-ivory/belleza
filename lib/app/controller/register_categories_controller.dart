@@ -14,7 +14,7 @@ import '../backend/parse/business_register_parse.dart';
 import 'business_register_controller.dart';
 
 class RegisterCategoriesController extends GetxController implements GetxService {
-  final RegisterCategoriesParser parser;
+  final BusinessRegisterParser parser;
 
   String selectedServedCate = '';
   String selectedServedCateName = '';
@@ -82,7 +82,7 @@ class RegisterCategoriesController extends GetxController implements GetxService
   }
 
   void saveAndClose() {
-    Get.find<BusinessSignUpController>().saveCategory(_servedCategoriesList);
+    Get.find<BusinessSignUpController>().saveCategory(servedCategoriesList);
     onBack();
   }
 

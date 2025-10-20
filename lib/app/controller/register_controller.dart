@@ -85,7 +85,7 @@ class RegisterController extends GetxController with GetSingleTickerProviderStat
         'subject': 'Verification'.tr,
         'header_text': 'Use this code for verification'.tr,
         'thank_you_text': "Don't share this otp to anybody else".tr,
-        'mediaURL': '${Environments.apiBaseURL}api/storage/images/',
+        'mediaURL': '${Environments.apiBaseURL}/storage/images/',
         'country_code': countryCode,
         'mobile': mobileTextEditor.text
       };

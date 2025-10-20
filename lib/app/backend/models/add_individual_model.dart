@@ -1,33 +1,29 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Ultimate Salon Full App Flutter V3
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2024-present initappz.
-*/
+
 class AddBusinessModel {
   int? id;
-  int? salonUid;
   String? cateId;
-  String? firstName;
-  String? lastName;
-  String? cover;
-  String? extraField;
+  String? cateName;
+  String? name;
+  String? businessName;
+  String? instagramLink;
+  String? whatsappNumber;
+  String? email;
+  bool? haveShop;
   int? status;
   bool? isChecked;
   List<Categories>? categories;
 
-  AddBusinessModel({this.id, this.salonUid, this.cateId, this.firstName, this.lastName, this.cover, this.extraField, this.status, this.categories, this.isChecked});
+  AddBusinessModel({this.id, this.cateId, this.name, this.businessName, this.email, this.haveShop, this.status, this.categories, this.isChecked});
 
   AddBusinessModel.fromJson(Map<String, dynamic> json) {
     id = int.parse(json['id'].toString());
-    salonUid = int.parse(json['salon_uid'].toString());
     cateId = json['cate_id'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    cover = json['cover'];
-    extraField = json['extra_field'];
+    name = json['first_name'];
+    businessName = json['business_name'];
+    whatsappNumber = json['whatsapp_number'];
+    instagramLink = json['instagram_link'];
+    email = json['email'];
+    haveShop = json['have_shop'];
     isChecked = json['isChecked'];
     status = int.parse(json['status'].toString());
     if (json['categories'] != null) {
@@ -41,12 +37,13 @@ class AddBusinessModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['salon_uid'] = salonUid;
     data['cate_id'] = cateId;
-    data['first_name'] = firstName;
-    data['last_name'] = lastName;
-    data['cover'] = cover;
-    data['extra_field'] = extraField;
+    data['first_name'] = name;
+    data['business_name'] = businessName;
+    data['whatsapp_number'] = whatsappNumber;
+    data['instagram_link'] = instagramLink;
+    data['email'] = email;
+    data['have_shop'] = haveShop;
     data['isChecked'] = isChecked;
     data['status'] = status;
     if (categories != null) {
@@ -60,13 +57,18 @@ class Categories {
   int? id;
   String? name;
   String? cover;
+  bool? isChecked = false;
+  int? status;
 
-  Categories({this.id, this.name, this.cover});
+
+  Categories({this.id, this.name, this.isChecked, this.status, this.cover});
 
   Categories.fromJson(Map<String, dynamic> json) {
     id = int.parse(json['id'].toString());
     name = json['name'];
     cover = json['cover'];
+    isChecked = json['isChecked'];
+    status = int.parse(json['status'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +76,8 @@ class Categories {
     data['id'] = id;
     data['name'] = name;
     data['cover'] = cover;
+    data['isChecked'] = isChecked;
+    data['status'] = status;
     return data;
   }
 }

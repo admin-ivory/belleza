@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:user/app/controller/business_register_controller.dart';
+import 'package:user/app/util/constant.dart';
 import 'package:user/app/util/theme.dart';
 
+import '../../backend/models/add_individual_model.dart';
 import '../../backend/models/city_model.dart';
 
 
@@ -23,37 +25,6 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
         shape: BoxShape.circle,
       ),
     );
-  }
-
-  // Fonction pour les questions Dropdown (Catégorie / Zone)
-  Widget _buildDropdownQuestion({
-    required String label,
-    required RxString selectedValue,
-    required List<String> options,
-    String? Function(String?)? validator,
-  }) {
-    return Obx(() => DropdownButtonFormField<String>(
-      value: selectedValue.value.isEmpty ? null : selectedValue.value,
-      hint: Text(label.tr),
-      decoration: const InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent)),
-        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-      ),
-      items: options.map((String item) {
-        return DropdownMenuItem<String>(
-          value: item,
-          child: Text(item.tr),
-        );
-      }).toList(),
-      onChanged: (newValue) {
-        if (newValue != null) {
-          selectedValue.value = newValue;
-        }
-      },
-      validator: validator,
-    ));
   }
 
   @override
@@ -91,7 +62,7 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                         const SizedBox(height: 30.0),
 
                         // Titre et Timeline (Toujours visibles)
-                        Text('Bienvenue chez vous!!', style: TextStyle(fontFamily: 'Segoe UI', fontSize: 30, fontWeight: FontWeight.bold, color: const Color(0xff000000)), textAlign: TextAlign.left),
+                        const Text('Bienvenue chez vous!!', style: TextStyle(fontFamily: 'Segoe UI', fontSize: 30, fontWeight: FontWeight.bold, color: Color(0xff000000)), textAlign: TextAlign.left),
                         const SizedBox(height: 20.0),
 
                         // Indicateur de Timeline
@@ -105,16 +76,70 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                         if (value.currentStep.value == 0)
                           Column(
                             children: [
-                              InputTextWidget(
-                                  controller: value.name,
-                                  labelText: "Prénom",
-                                  icon: Icons.person,
-                                  obscureText: false,
-                                  keyboardType: TextInputType.text,
-                                isrequired: false,),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 12.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    // Appelle la méthode qui ouvre le dialogue de sélection
+                                    //  value.openCategorySelector();
+                                  },
+                                  child: Container(
+                                    // Utilisation du même style Material pour un look cohérent
+                                    child: Material(
+                                      elevation: 15.0,
+                                      shadowColor: Colors.black,
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 20.0, left: 15.0),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            debugPrint('open category');
+                                            // Appelle la méthode qui ouvre le dialogue de sélection
+                                            value.getAllServedCategory();
+                                          },
+                                          child: Row(
+                                            children: [
+                                              const Icon(Icons.category, color: Colors.black, size: 32.0),
+                                              const SizedBox(width: 15.0),
+                                              Expanded(
+
+                                                // Utilisez Obx pour que le widget se reconstruise
+                                                // lorsque la valeur sélectionnée ou la liste changent.
+                                                child: Obx(() => DropdownButton<Categories>(
+                                                  underline: const SizedBox(),
+                                                  isExpanded: true,
+
+                                                  // Affichez un "hint" si rien n'est sélectionné
+                                                  hint: const Text("Sélectionnez une catégorie"),
+
+                                                  // --- CORRECTION 1 ---
+                                                  // Pointez vers la variable de sélection unique
+                                                  value: value.selectedCategory.value,
+
+                                                  // Votre 'items' était déjà correct,
+                                                  // mais j'ai renommé 'value' en 'category' pour la clarté
+                                                   items: [],
+
+
+                                                  // --- CORRECTION 2 ---
+                                                  // Appelez la nouvelle fonction lors d'un changement
+                                                  onChanged: (Categories? newValue) {
+                                                    value.onCategoryChanged(newValue);
+                                                  },
+                                                ),
+                                                ),
+                                              ),
+                                              const Icon(Icons.chevron_right, color: Colors.black54),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               const SizedBox(height: 12.0),
                               InputTextWidget(
-
                                   controller: value.lastNameTextEditor,
                                   labelText: "Business **",
                                   icon: Icons.business,
@@ -132,17 +157,16 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                             children: [
                               InputTextWidget(
                                   isrequired: true,
-
                                   labelText: "Adresse Email Pro **",
-                                  icon: Icons.email,
+                                  icon: Icons.ice_skating,
                                   obscureText: false,
                                   keyboardType: TextInputType.emailAddress,
                                   validator: (v) => v!.isEmpty || !GetUtils.isEmail(v) ? 'Email invalide' : null),
                               const SizedBox(height: 12.0),
                               InputTextWidget(
                                   isrequired: false,
-                                  controller: value.mobileTextEditor,
-                                  labelText: "Numéro Téléphone",
+                                  controller: value.whatsappTextEditor,
+                                  labelText: "WhatsApp",
                                   icon: Icons.phone,
                                   obscureText: false,
                                   keyboardType: TextInputType.number,),
@@ -206,14 +230,24 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
 
                         // --- ÉTAPE 4: MOT DE PASSE (Index 3) ---
                         if (value.currentStep.value == 3)
-                          InputTextWidget(
-                            controller: value.name,
-                            labelText: "Social pro link",
-                            icon: Icons.social_distance,
-                            obscureText: false,
-                            keyboardType: TextInputType.text,
-                            isrequired: false,),
-                        const SizedBox(height: 25.0),
+                         Column(
+                           children: [InputTextWidget(
+                             controller: value.addressTextEditor,
+                             labelText: "Debutante Experimente",
+                             icon: Icons.social_distance,
+                             obscureText: false,
+                             keyboardType: TextInputType.text,
+                             isrequired: false,),
+                             const SizedBox(height: 25.0),
+                             InputTextWidget(
+                               controller: value.name,
+                               labelText: "Prenom",
+                               icon: Icons.social_distance,
+                               obscureText: false,
+                               keyboardType: TextInputType.text,
+                               isrequired: false,),]
+
+                         ),
 
                         // --- Boutons de Navigation ---
                         Padding(
@@ -247,7 +281,13 @@ class FormBusiness extends GetWidget<BusinessSignUpController> {
                                     if (_formKey.currentState!.validate()) {
                                       if (value.currentStep.value == value.totalSteps - 1) {
                                         // Dernière étape: Soumission
-                                        value.onRegister();
+                                        value.envoyerEmailDeConfirmation(
+                                            whatsapp: value.whatsappTextEditor.text,
+                                            instagram: value.businessNameTextEditor.text,
+                                            emailUtilisateur: value.emailText.text,
+                                            nomUtilisateur: value.name.text,
+                                            businessName: value.lastNameTextEditor.text,
+                                        );
                                       } else {
                                         // Prochaine étape
                                         value.onNext();
@@ -368,3 +408,4 @@ class InputTextWidget extends StatelessWidget {
     );
   }
 }
+

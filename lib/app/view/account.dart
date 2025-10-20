@@ -351,7 +351,8 @@ class _AccountScreenState extends State<AccountScreen> {
                         value: value,
                         label: "Business Subscribe".tr,
                         onTap: () => Get.toNamed(AppRouter.getbusinessRegisterRoute()),
-                        showIfLoggedIn: false, // Afficher si NON connecté
+                        showIfLoggedIn: false, // On assume qu'on le montre aux non-connectés
+                        isGrayBackground: true,
                       ),
                     ],
                   ),
