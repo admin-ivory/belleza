@@ -34,13 +34,10 @@ class BusinessSignUpController extends GetxController implements GetxService {
   final RxInt currentStep = 0.obs;
   final emailText = TextEditingController();
   final businessNameTextEditor = TextEditingController();
-  final lastNameTextEditor = TextEditingController();
+
   final whatsappTextEditor = TextEditingController();
-  final lat = 48.857548;
-  final lng = 2.351377;
   final name = TextEditingController();
   final zipcode = TextEditingController();
-  String otpCode = '';
   final descriptionsTextEditor = 'New Afro Queen Services';
   final addressTextEditor = TextEditingController();
 // 2. AJOUTEZ CECI : Variable pour la sélection ACTUELLE
@@ -122,10 +119,10 @@ class BusinessSignUpController extends GetxController implements GetxService {
   Future<void> envoyerEmailDeConfirmation({
     required String emailUtilisateur,
     required String nomUtilisateur,
-    required String whatsapp,
+   // required String whatsapp,
     required String instagram,
     required String businessName,
-
+    required String zoneZip
   }) async {
     // 1. Afficher un dialogue de chargement
     Get.dialog(
@@ -147,9 +144,10 @@ class BusinessSignUpController extends GetxController implements GetxService {
           'data': {
             'nom': nomUtilisateur, // La variable {{ nom }}
             'email': emailUtilisateur,
-            'whatsapp': whatsapp,
+           // 'whatsapp': whatsapp,
             'instagram': instagram,
             'businessName': businessName,
+            'zoneZip' : zoneZip
           },
         },
       });
@@ -158,8 +156,12 @@ class BusinessSignUpController extends GetxController implements GetxService {
         'template': {
           'name': 'admin_notification', // <<< Le nouveau template
           'data': {
-            'nom': nomUtilisateur,
-            'email_expediteur': emailUtilisateur, // <<< La nouvelle variable
+            'nom': nomUtilisateur, // La variable {{ nom }}
+            'email': emailUtilisateur,
+          // 'whatsapp': whatsapp,
+            'instagram': instagram,
+            'businessName': businessName,
+            'zoneZip' : zoneZip
           },
         },
       });
